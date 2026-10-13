@@ -10,11 +10,16 @@
 
 function obtenerTemaActual() {
   const guardado = localStorage.getItem('tema-preferido');
-  if (guardado) return guardado;
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'oscuro';
-  }
-  return 'claro';
+  return guardado === 'oscuro' ? 'oscuro' : 'claro';
+}
+
+// Fecha del dia en la cabecera, formato "13 de octubre"
+function pintarFechaCabecera() {
+  const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const hoy = new Date();
+  document.querySelectorAll('.header-fecha').forEach(el => {
+    el.textContent = `${hoy.getDate()} de ${meses[hoy.getMonth()]}`;
+  });
 }
 
 function aplicarTema(tema) {
@@ -51,14 +56,6 @@ function inicializarManejadorTema() {
       aplicarTema(nuevo);
     }
   });
-
-  if (window.matchMedia) {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (!localStorage.getItem('tema-preferido')) {
-        aplicarTema(e.matches ? 'oscuro' : 'claro');
-      }
-    });
-  }
 }
 
 // Ejecutar inmediatamente para evitar parpadeos
@@ -108,7 +105,7 @@ function formatearFechaCorta(cadenaFecha) {
   const dia = partes[2].padStart(2, '0');
   const mes = meses[parseInt(partes[1], 10) - 1];
   const ano = partes[0];
-  return `${dia} ${mes} ${ano}`;
+  return `${dia} ${mes} ${ano.slice(-2)}`;
 }
 
 function calcularTiempoLectura(articulo) {
@@ -276,68 +273,57 @@ async function inicializarPortada() {
   const destacado = articulos[0];
   const secundarios = articulos.slice(1);
 
-  // 1. Tarjeta Destacada (archive__featured)
+  // 1. Tarjeta destacada: panel de portada + panel de contenido
   const fechaDestacada = formatearFechaCorta(destacado.fecha);
   const tiempoDestacada = calcularTiempoLectura(destacado);
-  const kickerDestacado = destacado.etiquetas && destacado.etiquetas[0] ? destacado.etiquetas[0].toUpperCase() : 'EDITORIAL';
-  const etiquetasDestacadasHtml = (destacado.etiquetas || [])
-    .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
-    .join(' ');
+  const kickerDestacado = destacado.etiquetas && destacado.etiquetas[0] ? destacado.etiquetas[0].toUpperCase() : 'ENSAYO';
 
   let html = `
-    <!-- Bloque Destacado -->
     <section class="seccion-destacada" aria-label="Ensayo destacado">
       <a href="articulo.html?slug=${encodeURIComponent(destacado.slug)}" class="card-destacada">
-        <div class="card-destacada__tags">
-          <span class="tag-pill tag-pill--solid">NUEVO</span>
-          <span class="seccion-kicker">${escaparHTML(kickerDestacado)}</span>
+        <div class="portada portada--claro card-destacada__portada"><span class="portada__marca">JP</span></div>
+        <div class="card-destacada__contenido">
+          <div class="card-destacada__tags"><span class="tag-pill tag-pill--solid">NUEVO</span></div>
+          <div>
+            <div class="card-destacada__kicker"><span class="seccion-kicker">${escaparHTML(kickerDestacado)}</span></div>
+            <h2 class="card-destacada__titulo">${escaparHTML(destacado.titulo)}</h2>
+            <p class="card-destacada__resumen">${escaparHTML(destacado.resumen)}</p>
+          </div>
+          <div class="meta-container">
+            <span class="meta-fecha">${escaparHTML(fechaDestacada)}</span>
+            <span class="meta-tiempo">${escaparHTML(tiempoDestacada)}</span>
+          </div>
         </div>
-        <h2 class="card-destacada__titulo">${escaparHTML(destacado.titulo)}</h2>
-        <p class="card-destacada__resumen">${escaparHTML(destacado.resumen)}</p>
-        <div class="meta-container">
-          <span class="meta-fecha">${escaparHTML(fechaDestacada)}</span>
-          <span class="meta-separador">·</span>
-          <span class="meta-tiempo">${escaparHTML(tiempoDestacada)}</span>
-          <span class="meta-separador">·</span>
-          <span class="meta-autor">POR JUAN PABLO SÁNCHEZ</span>
-        </div>
-        <div class="etiquetas">${etiquetasDestacadasHtml}</div>
       </a>
     </section>
   `;
 
-  // 2. Cuadricula de Ensayos Secundarios (archive__grid)
+  // 2. Cuadricula "Mas ensayos"
   if (secundarios.length > 0) {
+    const variantes = ['negro', 'cobalto', 'marino'];
     html += `
       <section class="seccion-grid" aria-label="Más ensayos publicados">
-        <h2 class="seccion-grid__titulo-bloque">Más publicaciones</h2>
+        <h2 class="seccion-grid__titulo-bloque">Más ensayos</h2>
         <div class="grid-articulos">
     `;
 
-    secundarios.forEach(art => {
+    secundarios.forEach((art, i) => {
       const fechaCorta = formatearFechaCorta(art.fecha);
       const tiempo = calcularTiempoLectura(art);
-      const kicker = art.etiquetas && art.etiquetas[0] ? art.etiquetas[0].toUpperCase() : 'THE IDEA';
-      const tagsHtml = (art.etiquetas || [])
-        .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
-        .join(' ');
+      const variante = variantes[i % variantes.length];
 
       html += `
         <a href="articulo.html?slug=${encodeURIComponent(art.slug)}" class="card-articulo">
-          <div class="card-articulo__top">
-            <div class="card-articulo__kicker">
-              <span class="seccion-kicker">${escaparHTML(kicker)}</span>
+          <div class="portada portada--${variante} portada--chica card-articulo__portada"><span class="portada__marca">JP</span></div>
+          <div class="card-articulo__cuerpo">
+            <div>
+              <h3 class="card-articulo__titulo">${escaparHTML(art.titulo)}</h3>
+              <p class="card-articulo__resumen">${escaparHTML(art.resumen)}</p>
             </div>
-            <h3 class="card-articulo__titulo">${escaparHTML(art.titulo)}</h3>
-            <p class="card-articulo__resumen">${escaparHTML(art.resumen)}</p>
-          </div>
-          <div class="card-articulo__bottom">
             <div class="meta-container">
               <span class="meta-fecha">${escaparHTML(fechaCorta)}</span>
-              <span class="meta-separador">·</span>
               <span class="meta-tiempo">${escaparHTML(tiempo)}</span>
             </div>
-            <div class="etiquetas">${tagsHtml}</div>
           </div>
         </a>
       `;
@@ -562,6 +548,7 @@ async function inicializarArticulo() {
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  pintarFechaCabecera();
   actualizarBotonTema(obtenerTemaActual());
 
   if (document.getElementById('contenedor-articulos')) {
