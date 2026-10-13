@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Juan Pablo Sánchez | Ensayos</title>
+    <link>https://quantrabbit.github.io/</link>
+    <description>Canal personal de ensayos sobre economía, política, inversión y vida económica por Juan Pablo Sánchez para founders y directores generales.</description>
+    <language>es-mx</language>
+    <atom:link href="https://quantrabbit.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Mon, 12 Oct 2026 00:00:00 GMT</lastBuildDate>
+
+    <item>
+      <title>Por qué existe esta página</title>
+      <link>https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina</link>
+      <guid isPermaLink="true">https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina</guid>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[[Pendiente de redacción por Juan Pablo: síntesis de los motivos del sitio, audiencia de directores generales y reglas editoriales.]]]></description>
+      <author>juanpablo (Juan Pablo Sánchez)</author>
+    </item>
+
+    <item>
+      <title>Estructura de ensayo [PLACEHOLDER]</title>
+      <link>https://quantrabbit.github.io/articulo.html?slug=ejemplo-de-ensayo</link>
+      <guid isPermaLink="true">https://quantrabbit.github.io/articulo.html?slug=ejemplo-de-ensayo</guid>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[[PLACEHOLDER: Resumen ejecutivo del ensayo de ejemplo para buscadores e indexación en motores de respuesta.]]]></description>
+      <author>juanpablo (Juan Pablo Sánchez)</author>
+    </item>
+  </channel>
+</rss>

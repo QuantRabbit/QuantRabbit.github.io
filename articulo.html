@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ensayo | Juan Pablo Sánchez</title>
+  <meta name="description" content="Ensayo sobre economía, política, inversión y vida económica por Juan Pablo Sánchez.">
+  <meta name="author" content="Juan Pablo Sánchez">
+  <meta name="robots" content="index, follow">
+
+  <!-- Canónico y Open Graph gestionados dinamicamente por js/app.js -->
+  <link rel="canonical" href="https://quantrabbit.github.io/articulo.html">
+  <meta property="og:site_name" content="Juan Pablo Sánchez">
+  <meta property="og:title" content="Ensayo | Juan Pablo Sánchez">
+  <meta property="og:description" content="Canal personal de ensayos sobre economía, política e inversión.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_MX">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ensayo | Juan Pablo Sánchez">
+  <meta name="twitter:description" content="Canal personal de ensayos sobre economía, política e inversión.">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/estilos.css">
+
+  <!-- Respaldo de datos y logica cliente -->
+  <script src="datos/articulos.js"></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="contenedor">
+    <header class="site-header">
+      <a href="index.html" class="site-title">Juan Pablo Sánchez</a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="index.html">Ensayos</a>
+        <a href="sobre-mi.html">Sobre mí</a>
+        <a href="rss.xml">RSS</a>
+      </nav>
+    </header>
+
+    <main id="contenedor-articulo">
+      <!-- Mensaje para entornos sin JavaScript activo o carga inicial -->
+      <noscript>
+        <p>Este sitio utiliza JavaScript mínimo para presentar los ensayos. Si tu navegador no tiene JavaScript activo, puedes consultar el archivo <a href="datos/articulos.json">datos/articulos.json</a> o el feed <a href="rss.xml">rss.xml</a> directamente.</p>
+      </noscript>
+      <div style="padding: 2rem 0; color: var(--text-muted);">
+        Cargando ensayo...
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div>© 2026 Juan Pablo Sánchez. Todos los textos se redactan a mano sin IA.</div>
+      <div class="footer-links">
+        <a href="sobre-mi.html">Sobre mí</a>
+        <a href="llms.txt">llms.txt</a>
+        <a href="rss.xml">RSS</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

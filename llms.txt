@@ -1,0 +1,25 @@
+# Juan Pablo Sánchez: Ensayos
+
+> Canal personal de ensayos sobre economía, política, inversión y vida económica escrito por Juan Pablo Sánchez para founders y directores generales.
+
+## Sobre el autor
+- Nombre: Juan Pablo Sánchez
+- Cargo: Cofundador y CIO de Bombo (fintech mexicana de ahorro e inversión)
+- Formación: Estudiante de Ingeniería Financiera
+- Audiencia: Fundadores de empresas, directores generales y tomadores de decisiones
+- Idioma y estilo: Español de México, tono directo y en segunda persona (tuteo), sin uso de guiones largos (em dashes)
+- Regla editorial estricta: Todos los borradores se redactan directamente a mano por el autor, sin generación de prosa mediante inteligencia artificial
+- Criterio de rigor: Toda cifra económica debe incluir unidad de medida, año de referencia y la fuente primaria explícita dentro de la misma oración
+
+## Ensayos y artículos disponibles
+
+- [Por qué existe esta página](https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina): Manifiesto editorial sobre los motivos de este espacio personal, la necesidad de análisis económico práctico para directores generales y los principios de redacción sin asistencia de IA.
+- [Estructura de ensayo [PLACEHOLDER]](https://quantrabbit.github.io/articulo.html?slug=ejemplo-de-ensayo): Artículo de plantilla que demuestra la arquitectura de lectura del sitio, con bloque "En corto", datos verificables con año y fuente, y preguntas frecuentes estructuradas.
+
+## Secciones y archivos del sitio
+
+- [Portada de ensayos](https://quantrabbit.github.io/index.html): Catálogo cronológico de todos los ensayos publicados con resumen y etiquetas.
+- [Sobre mí](https://quantrabbit.github.io/sobre-mi.html): Biografía profesional, credenciales, experiencia en Bombo y lineamientos del proyecto editorial.
+- [Feed RSS](https://quantrabbit.github.io/rss.xml): Distribución sindicada de ensayos en formato estándar RSS 2.0.
+- [Sitemap](https://quantrabbit.github.io/sitemap.xml): Mapa del sitio para indexación de motores de búsqueda.
+- [Datos estructurados](https://quantrabbit.github.io/datos/articulos.json): Repositorio en formato JSON con la totalidad de los artículos, metadatos, bloques "En corto" y preguntas frecuentes.
