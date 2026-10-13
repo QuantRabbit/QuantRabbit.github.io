@@ -339,18 +339,20 @@ async function inicializarArticulo() {
     html += `
       <section class="fuentes-seccion" aria-label="Fuentes y referencias">
         <h2>Fuentes primarias y referencias</h2>
-        <ul class="fuentes-lista">
+        <div class="fuentes-caja">
+          <ul class="fuentes-lista">
     `;
     articulo.fuentes.forEach(fuente => {
       html += `
-        <li>
-          <strong>${escaparHTML(fuente.nombre)}</strong>${fuente.ano ? ` (${escaparHTML(fuente.ano)})` : ''}: 
-          <a href="${escaparHTML(fuente.url)}" target="_blank" rel="noopener noreferrer">${escaparHTML(fuente.descripcion || fuente.url)}</a>
-        </li>
+            <li>
+              <strong>${escaparHTML(fuente.nombre)}</strong>${fuente.ano ? ` (${escaparHTML(fuente.ano)})` : ''}: 
+              <a href="${escaparHTML(fuente.url)}" target="_blank" rel="noopener noreferrer">${escaparHTML(fuente.descripcion || fuente.url)}</a>
+            </li>
       `;
     });
     html += `
-        </ul>
+          </ul>
+        </div>
       </section>
     `;
   }
