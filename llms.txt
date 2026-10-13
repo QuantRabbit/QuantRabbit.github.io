@@ -23,4 +23,4 @@
 - [Feed RSS](https://quantrabbit.github.io/rss.xml): Distribución sindicada de ensayos en formato estándar RSS 2.0.
 - [Sitemap](https://quantrabbit.github.io/sitemap.xml): Mapa del sitio para indexación de motores de búsqueda.
 - [Datos estructurados](https://quantrabbit.github.io/datos/articulos.json): Repositorio en formato JSON con la totalidad de los artículos, metadatos, bloques "En corto" y preguntas frecuentes.
-- [Sistema de diseño](https://quantrabbit.github.io/DESIGN.md): Especificación del sistema de diseño editorial GBM / WSJ (prensa financiera de alto contraste, azul marino institucional y reglas GEO).
+- [Sistema de diseño](https://quantrabbit.github.io/DESIGN.md): Especificación del sistema de diseño editorial inspirado en GBM Media "The Idea" (pureza sans-serif, kickers en versalitas, alto impacto y reglas GEO).

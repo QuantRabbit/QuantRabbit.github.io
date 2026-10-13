@@ -33,6 +33,34 @@ function formatearFecha(cadenaFecha) {
   return `${dia} de ${mes} de ${ano}`;
 }
 
+// Formateador de fecha corta estilo GBM Media (ej. 12 OCT 2026)
+function formatearFechaCorta(cadenaFecha) {
+  if (!cadenaFecha) return '';
+  const partes = cadenaFecha.split('-');
+  if (partes.length !== 3) return cadenaFecha;
+  const meses = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+  const dia = partes[2].padStart(2, '0');
+  const mes = meses[parseInt(partes[1], 10) - 1];
+  const ano = partes[0];
+  return `${dia} ${mes} ${ano}`;
+}
+
+// Calculo de tiempo de lectura estimado
+function calcularTiempoLectura(articulo) {
+  let palabras = (articulo.titulo || '').split(/\s+/).length;
+  if (articulo.subtitulo) palabras += articulo.subtitulo.split(/\s+/).length;
+  if (articulo.resumen) palabras += articulo.resumen.split(/\s+/).length;
+  if (articulo.enCorto) palabras += articulo.enCorto.join(' ').split(/\s+/).length;
+  if (articulo.cuerpo) {
+    articulo.cuerpo.forEach(b => {
+      if (b.texto) palabras += b.texto.split(/\s+/).length;
+      if (b.items) palabras += b.items.join(' ').split(/\s+/).length;
+    });
+  }
+  const minutos = Math.max(1, Math.ceil(palabras / 180));
+  return `${minutos} MIN DE LECTURA`;
+}
+
 // Escape simple para prevenir inyecciones no deseadas
 function escaparHTML(texto) {
   if (!texto) return '';
@@ -180,18 +208,24 @@ async function inicializarPortada() {
 
   let html = '<ul class="lista-articulos">';
   articulos.forEach(art => {
-    const fechaTexto = formatearFecha(art.fecha);
+    const fechaTexto = formatearFechaCorta(art.fecha);
+    const tiempoLectura = calcularTiempoLectura(art);
+    const categoria = art.etiquetas && art.etiquetas[0] ? art.etiquetas[0].toUpperCase() : 'THE IDEA';
     const etiquetasHtml = (art.etiquetas || [])
       .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
       .join(' ');
 
     html += `
       <li class="item-articulo">
-        <time class="item-articulo-fecha" datetime="${escaparHTML(art.fecha)}">${escaparHTML(fechaTexto)}</time>
+        <span class="seccion-kicker">${escaparHTML(categoria)}</span>
         <h2 class="item-articulo-titulo">
           <a href="articulo.html?slug=${encodeURIComponent(art.slug)}">${escaparHTML(art.titulo)}</a>
         </h2>
         <p class="item-articulo-resumen">${escaparHTML(art.resumen)}</p>
+        <div class="articulo-meta" style="margin-bottom: 0.75rem; padding-bottom: 0; border-bottom: none;">
+          <time datetime="${escaparHTML(art.fecha)}">${escaparHTML(fechaTexto)}</time>
+          <span>${escaparHTML(tiempoLectura)}</span>
+        </div>
         <div class="etiquetas">${etiquetasHtml}</div>
       </li>
     `;
@@ -236,24 +270,26 @@ async function inicializarArticulo() {
   actualizarMetasEncabezado(articulo);
   inyectarMetadatosJSONLD(articulo);
 
-  const fechaPub = formatearFecha(articulo.fecha);
-  const fechaAct = formatearFecha(articulo.fechaActualizacion);
+  const fechaCorta = formatearFechaCorta(articulo.fecha);
+  const tiempoLectura = calcularTiempoLectura(articulo);
+  const categoria = articulo.etiquetas && articulo.etiquetas[0] ? articulo.etiquetas[0].toUpperCase() : 'THE IDEA';
   const etiquetasHtml = (articulo.etiquetas || [])
     .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
     .join(' ');
 
   let html = `
-    <a href="index.html" class="enlace-volver">← Todos los ensayos</a>
+    <a href="index.html" class="enlace-volver">← Regresar a Ensayos</a>
     <article>
       <header>
+        <span class="seccion-kicker">${escaparHTML(categoria)}</span>
         <h1>${escaparHTML(articulo.titulo)}</h1>
-        ${articulo.subtitulo ? `<p class="subtitulo-articulo">${escaparHTML(articulo.subtitulo)}</p>` : ''}
+        ${articulo.subtitulo ? `<div class="subtitulo-articulo">${escaparHTML(articulo.subtitulo)}</div>` : ''}
         <div class="articulo-meta">
+          <time datetime="${escaparHTML(articulo.fecha)}">${escaparHTML(fechaCorta)}</time>
+          <span>${escaparHTML(tiempoLectura)}</span>
           <span class="meta-autor">Por <a href="sobre-mi.html">${escaparHTML(articulo.autor ? articulo.autor.nombre : 'Juan Pablo Sánchez')}</a></span>
-          <time datetime="${escaparHTML(articulo.fecha)}">Publicado el ${escaparHTML(fechaPub)}</time>
-          ${articulo.fechaActualizacion && articulo.fechaActualizacion !== articulo.fecha ? `<time datetime="${escaparHTML(articulo.fechaActualizacion)}">(Actualizado el ${escaparHTML(fechaAct)})</time>` : ''}
+          ${articulo.fechaActualizacion && articulo.fechaActualizacion !== articulo.fecha ? `<span>(ACTUALIZADO: ${escaparHTML(formatearFechaCorta(articulo.fechaActualizacion))})</span>` : ''}
         </div>
-        <div class="etiquetas">${etiquetasHtml}</div>
       </header>
   `;
 

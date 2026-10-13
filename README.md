@@ -19,7 +19,7 @@ sitio-personal/
 ├── sitemap.xml             # Mapa XML del sitio para indexación
 ├── rss.xml                 # Feed de suscripción en formato RSS 2.0
 ├── llms.txt                # Índice y contexto optimizado para motores de IA (GEO)
-├── DESIGN.md               # Sistema de diseño editorial GBM / WSJ (prensa financiera y fintech)
+├── DESIGN.md               # Sistema de diseño editorial inspirado en GBM Media "The Idea"
 ├── css/
 │   └── estilos.css         # Tipografía sobria, una columna (68ch) y modo oscuro automático
 ├── js/
