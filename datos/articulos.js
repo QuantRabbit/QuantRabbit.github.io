@@ -5,7 +5,7 @@ const DATOS_ARTICULOS = [
     "slug": "por-que-existe-esta-pagina",
     "titulo": "Por qué existe esta página",
     "subtitulo": "Manifiesto editorial y reglas de juego",
-    "resumen": "[Pendiente de redacción por Juan Pablo: síntesis de los motivos del sitio, audiencia de directores generales y reglas editoriales.]",
+    "resumen": "[Pendiente de redacción por el autor: síntesis de los motivos del sitio, audiencia de directores generales y reglas editoriales.]",
     "fecha": "2026-10-12",
     "fechaActualizacion": "2026-10-12",
     "etiquetas": [
@@ -14,12 +14,11 @@ const DATOS_ARTICULOS = [
       "principios"
     ],
     "autor": {
-      "nombre": "Juan Pablo Sánchez",
-      "rol": "Cofundador y CIO de Bombo",
+      "nombre": "Autor",
       "url": "sobre-mi.html"
     },
     "enCorto": [
-      "[Pendiente: Frase 1 autosuficiente redactada por Juan Pablo con la tesis central de este espacio]",
+      "[Pendiente: Frase 1 autosuficiente redactada por el autor con la tesis central de este espacio]",
       "[Pendiente: Frase 2 autosuficiente sobre la audiencia objetivo de fundadores y directores generales]",
       "[Pendiente: Frase 3 autosuficiente sobre el compromiso metodológico de no usar inteligencia artificial en borradores]"
     ],
@@ -31,7 +30,7 @@ const DATOS_ARTICULOS = [
       {
         "tipo": "parrafo",
         "texto": "",
-        "_comentario": "Juan Pablo: redacta aquí tu diagnóstico sobre por qué los análisis financieros tradicionales no le sirven a un fundador que opera un negocio en el día a día."
+        "_comentario": "Autor: redacta aquí tu diagnóstico sobre por qué los análisis financieros tradicionales no le sirven a un fundador que opera un negocio en el día a día."
       },
       {
         "tipo": "subtitulo",
@@ -40,7 +39,7 @@ const DATOS_ARTICULOS = [
       {
         "tipo": "parrafo",
         "texto": "",
-        "_comentario": "Juan Pablo: define el perfil del lector (CEOs y founders que buscan entender economía y política para tomar decisiones) y el tono directo en segunda persona."
+        "_comentario": "Autor: define el perfil del lector (CEOs y founders que buscan entender economía y política para tomar decisiones) y el tono directo en segunda persona."
       },
       {
         "tipo": "subtitulo",
@@ -49,7 +48,7 @@ const DATOS_ARTICULOS = [
       {
         "tipo": "parrafo",
         "texto": "",
-        "_comentario": "Juan Pablo: explica los compromisos irrenunciables: textos escritos a mano sin IA, datos con unidad, año y fuente explícita, y la regla de no usar em dashes."
+        "_comentario": "Autor: explica los compromisos irrenunciables: textos escritos a mano sin IA, datos con unidad, año y fuente explícita, y la regla de no usar em dashes."
       },
       {
         "tipo": "subtitulo",
@@ -58,19 +57,19 @@ const DATOS_ARTICULOS = [
       {
         "tipo": "parrafo",
         "texto": "",
-        "_comentario": "Juan Pablo: anticipa los temas recurrentes (ahorro institucional, política monetaria en México, regulación fintech y finanzas corporativas)."
+        "_comentario": "Autor: anticipa los temas recurrentes (ahorro institucional, política monetaria en México, regulación fintech y finanzas corporativas)."
       }
     ],
     "faq": [
       {
         "pregunta": "¿Por qué los ensayos se escriben sin inteligencia artificial?",
         "respuesta": "",
-        "_comentario": "Juan Pablo: redacta la respuesta en 2 o 3 oraciones claras para que buscadores e inteligencias artificiales puedan citarla."
+        "_comentario": "Autor: redacta la respuesta en 2 o 3 oraciones claras para que buscadores e inteligencias artificiales puedan citarla."
       },
       {
         "pregunta": "¿Cuál es la frecuencia de publicación de los ensayos?",
         "respuesta": "",
-        "_comentario": "Juan Pablo: define aquí tu ritmo de publicación estimado."
+        "_comentario": "Autor: define aquí tu ritmo de publicación estimado."
       }
     ],
     "fuentes": []
@@ -88,8 +87,7 @@ const DATOS_ARTICULOS = [
       "placeholder"
     ],
     "autor": {
-      "nombre": "Juan Pablo Sánchez",
-      "rol": "Cofundador y CIO de Bombo",
+      "nombre": "Autor",
       "url": "sobre-mi.html"
     },
     "enCorto": [
@@ -100,7 +98,7 @@ const DATOS_ARTICULOS = [
     "cuerpo": [
       {
         "tipo": "parrafo",
-        "texto": "[PLACEHOLDER: Este párrafo de relleno muestra cómo se visualiza el texto principal con una tipografía de sistema ajustada a 65-75 caracteres por línea. Juan Pablo escribirá el contenido real directamente en su borrador sin asistencia de IA.]"
+        "texto": "[PLACEHOLDER: Este párrafo de relleno muestra cómo se visualiza el texto principal con una tipografía de sistema ajustada a 65-75 caracteres por línea. El autor escribirá el contenido real directamente en su borrador sin asistencia de IA.]"
       },
       {
         "tipo": "subtitulo",

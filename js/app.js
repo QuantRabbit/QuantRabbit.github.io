@@ -1,5 +1,5 @@
 /**
- * Logica de aplicacion para el sitio personal de ensayos de Juan Pablo Sanchez
+ * Logica de aplicacion para el sitio personal de ensayos del autor
  * Diseno editorial inspirado en GBM Media "The Idea" / WSJ
  * Sin dependencias externas ni CDNs. Compatible con file:// y GitHub Pages.
  */
@@ -151,7 +151,7 @@ function inyectarMetadatosJSONLD(articulo) {
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://quantrabbit.github.io/#sitio",
-        "name": "Juan Pablo Sánchez - Ensayos",
+        "name": "Ensayos",
         "url": "https://quantrabbit.github.io/"
       },
       "headline": articulo.titulo,
@@ -163,17 +163,12 @@ function inyectarMetadatosJSONLD(articulo) {
       "author": {
         "@type": "Person",
         "@id": "https://quantrabbit.github.io/sobre-mi.html#autor",
-        "name": "Juan Pablo Sánchez",
-        "jobTitle": "Cofundador y CIO",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Bombo"
-        },
+        "name": "Autor",
         "url": "https://quantrabbit.github.io/sobre-mi.html"
       },
       "publisher": {
         "@type": "Person",
-        "name": "Juan Pablo Sánchez"
+        "name": "Autor"
       }
     }
   ];
@@ -208,7 +203,7 @@ function inyectarMetadatosJSONLD(articulo) {
 }
 
 function actualizarMetasEncabezado(articulo) {
-  document.title = `${articulo.titulo} | Juan Pablo Sánchez`;
+  document.title = `${articulo.titulo} | Ensayos`;
 
   let metaDesc = document.querySelector('meta[name="description"]');
   if (!metaDesc) {
@@ -281,7 +276,7 @@ async function inicializarPortada() {
   let html = `
     <section class="seccion-destacada" aria-label="Ensayo destacado">
       <a href="articulo.html?slug=${encodeURIComponent(destacado.slug)}" class="card-destacada">
-        <div class="portada portada--claro card-destacada__portada"><span class="portada__marca">JP</span></div>
+        <div class="portada portada--claro card-destacada__portada"><span class="portada__marca">QR</span></div>
         <div class="card-destacada__contenido">
           <div class="card-destacada__tags"><span class="tag-pill tag-pill--solid">NUEVO</span></div>
           <div>
@@ -314,7 +309,7 @@ async function inicializarPortada() {
 
       html += `
         <a href="articulo.html?slug=${encodeURIComponent(art.slug)}" class="card-articulo">
-          <div class="portada portada--${variante} portada--chica card-articulo__portada"><span class="portada__marca">JP</span></div>
+          <div class="portada portada--${variante} portada--chica card-articulo__portada"><span class="portada__marca">QR</span></div>
           <div class="card-articulo__cuerpo">
             <div>
               <h3 class="card-articulo__titulo">${escaparHTML(art.titulo)}</h3>
@@ -384,7 +379,7 @@ async function inicializarArticulo() {
   const tiempoLectura = calcularTiempoLectura(articulo);
   const categoria = articulo.etiquetas && articulo.etiquetas[0] ? articulo.etiquetas[0].toUpperCase() : 'THE IDEA';
   const urlActual = window.location.href;
-  const textoCompartir = encodeURIComponent(`${articulo.titulo} | Juan Pablo Sánchez: `);
+  const textoCompartir = encodeURIComponent(`${articulo.titulo} | Ensayos: `);
 
   let html = `
     <div class="columna-lectura">
@@ -401,7 +396,7 @@ async function inicializarArticulo() {
           <span class="meta-separador">·</span>
           <span class="meta-tiempo">${escaparHTML(tiempoLectura)}</span>
           <span class="meta-separador">·</span>
-          <span class="meta-autor">POR <a href="sobre-mi.html" style="color: inherit; text-decoration: underline;">${escaparHTML(articulo.autor ? articulo.autor.nombre : 'Juan Pablo Sánchez')}</a></span>
+          <span class="meta-autor">POR <a href="sobre-mi.html" style="color: inherit; text-decoration: underline;">${escaparHTML(articulo.autor ? articulo.autor.nombre : 'Autor')}</a></span>
           <span class="meta-separador">·</span>
           <span class="meta-badge">TEXTO SIN IA</span>
           ${articulo.fechaActualizacion && articulo.fechaActualizacion !== articulo.fecha ? `<span class="meta-separador">·</span><span>ACTUALIZADO: ${escaparHTML(formatearFechaCorta(articulo.fechaActualizacion))}</span>` : ''}
@@ -450,7 +445,7 @@ async function inicializarArticulo() {
         } else if (bloque._comentario) {
           html += `
             <div class="borrador-box">
-              <strong>Sección en borrador (redacción por Juan Pablo):</strong>
+              <strong>Sección en borrador (redacción por el autor):</strong>
               ${escaparHTML(bloque._comentario)}
             </div>
           `;
@@ -489,7 +484,7 @@ async function inicializarArticulo() {
       } else if (item._comentario) {
         html += `
           <div class="borrador-box">
-            <strong>Respuesta pendiente (redacción por Juan Pablo):</strong>
+            <strong>Respuesta pendiente (redacción por el autor):</strong>
             ${escaparHTML(item._comentario)}
           </div>
         `;
@@ -523,14 +518,13 @@ async function inicializarArticulo() {
   // Tarjeta de autor al pie
   html += `
       <div class="autor-card">
-        <div class="autor-card__monograma">JP</div>
+        <div class="autor-card__monograma">QR</div>
         <div class="autor-card__body">
-          <h3>Juan Pablo Sánchez</h3>
-          <p class="autor-card__cargo">Cofundador y CIO de Bombo · Estudiante de Ingeniería Financiera</p>
+          <h3>Sobre el autor</h3>
           <p class="autor-card__bio">
             Escribe ensayos sobre macroeconomía, decisiones de tesorería, regulación fintech e inversión estratégica dirigidos a directores generales y fundadores. Redacta todos sus textos personalmente sin asistencia de inteligencia artificial.
           </p>
-          <a href="sobre-mi.html" class="autor-card__enlace">Leer más sobre Juan Pablo y los principios de este sitio →</a>
+          <a href="sobre-mi.html" class="autor-card__enlace">Leer más sobre el autor y los principios de este sitio →</a>
         </div>
       </div>
 

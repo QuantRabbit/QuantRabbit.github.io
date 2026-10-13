@@ -1,6 +1,6 @@
 # Sistema de Diseno Editorial: GBM Media "The Idea" / WSJ
 
-Sistema de diseno editorial para el canal personal de ensayos de Juan Pablo Sanchez, inspirado directamente en la direccion de arte de **GBM Media "The Idea"** (`gbm.com/media/the-idea/`) y Wall Street Journal.
+Sistema de diseno editorial para el canal personal de ensayos del autor, inspirado directamente en la direccion de arte de **GBM Media "The Idea"** (`gbm.com/media/the-idea/`) y Wall Street Journal.
 
 ---
 
@@ -8,10 +8,10 @@ Sistema de diseno editorial para el canal personal de ensayos de Juan Pablo Sanc
 
 - **Pureza tipografica sans-serif:** Sustituye las serifas clasicas por una tipografia de palo seco moderna, ejecutiva y tecnologica (`-apple-system`, `Segoe UI`, `Helvetica Neue`, `Arial`, `sans-serif`), transmitiendo la claridad y dinamismo de una publicacion de inteligencia financiera.
 - **Jerarquia visual GBM Media:**
-  - **Cabecera Masthead:** Monograma de marca (`JP`), nombre institucional, cargo (`CIO · BOMBO`), fecha del dia y selector de tema.
+  - **Cabecera Masthead:** Monograma de marca (`QR`), nombre institucional, cargo (`ENSAYOS`), fecha del dia y selector de tema.
   - **Subnavegacion horizontal:** Enlaces rapidos con filete inferior sutil.
   - **Hero Intro:** Titular en versalitas audaces (`THE IDEA / ENSAYOS`), kicker de seccion (`EDITORIAL`) y bajada ejecutiva explicativa (`txt-21`) de alto contraste.
-  - **Tarjeta Destacada (archive__featured):** Contenedor prominente con badge en pildora (`NUEVO`), titular en gran escala, resumen ejecutivo, metadatos tecnicos (`12 OCT 2026 · 4 MIN DE LECTURA · POR JUAN PABLO SÁNCHEZ`) y pildoras de etiquetas.
+  - **Tarjeta Destacada (archive__featured):** Contenedor prominente con badge en pildora (`NUEVO`), titular en gran escala, resumen ejecutivo, metadatos tecnicos (`12 OCT 2026 · 4 MIN DE LECTURA ·`) y pildoras de etiquetas.
   - **Cuadricula de Publicaciones (archive__grid):** Tarjetas estructuradas con bordes de 1px, superficies contrastadas y elevacion sutil en interaccion.
 - **Dualidad de temas con selector manual y automatico:**
   - **Modo Claro (GBM Media signature):** Lienzo blanco puro (`#ffffff`), tarjetas en pizarra ultra suave (`#f8f9fb`), tinta profunda (`#121316`) y acento azul cobalto (`#424ee0`).
@@ -59,7 +59,7 @@ Sistema de diseno editorial para el canal personal de ensayos de Juan Pablo Sanc
 ## 3. Componentes y Patrones
 
 ### A. Cabecera Masthead y Subnavegacion
-Monograma `JP`, nombre completo en mayusculas tecnicas, bloque de fecha del dia y selector de tema (`☀️ CLARO` / `🌙 OSCURO`) con guardado en `localStorage`.
+Monograma `QR`, nombre completo en mayusculas tecnicas, bloque de fecha del dia y selector de tema (`☀️ CLARO` / `🌙 OSCURO`) con guardado en `localStorage`.
 
 ### B. Tarjeta Destacada (archive__featured)
 El ensayo mas reciente se presenta en un modulo destacado con badge `NUEVO`, kicker en azul cobalto, titular contundente, sintesis de lectura y metadatos completos.
@@ -78,5 +78,5 @@ En `articulo.html`, boton pill de regreso (`← Regresar a Ensayos`), titular de
 ## 4. Reglas Editoriales Irrenunciables
 
 1. **Cero em dashes:** Prohibido el caracter guion largo (em dash). Se emplean dos puntos, puntos centrados (`·`), parentesis o guiones cortos convencionales (-).
-2. **Autor sin IA:** Todos los ensayos se redactan directamente por Juan Pablo Sanchez desde el primer borrador.
+2. **Autor sin IA:** Todos los ensayos se redactan directamente por el autor desde el primer borrador.
 3. **Cifras rigurosas:** Toda estadistica incluye ano y fuente primaria institucional (Banxico, INEGI, CNBV, SHCP) en la misma oracion.

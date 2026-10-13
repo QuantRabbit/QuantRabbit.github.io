@@ -1,11 +1,8 @@
-# Juan Pablo Sánchez: Ensayos
+# Ensayos
 
-> Canal personal de ensayos sobre economía, política, inversión y vida económica escrito por Juan Pablo Sánchez para founders y directores generales.
+> Canal personal de ensayos sobre economía, política, inversión y vida económica escrito para founders y directores generales.
 
 ## Sobre el autor
-- Nombre: Juan Pablo Sánchez
-- Cargo: Cofundador y CIO de Bombo (fintech mexicana de ahorro e inversión)
-- Formación: Estudiante de Ingeniería Financiera
 - Audiencia: Fundadores de empresas, directores generales y tomadores de decisiones
 - Idioma y estilo: Español de México, tono directo y en segunda persona (tuteo), sin uso de guiones largos (em dashes)
 - Regla editorial estricta: Todos los borradores se redactan directamente a mano por el autor, sin generación de prosa mediante inteligencia artificial
@@ -19,7 +16,7 @@
 ## Secciones y archivos del sitio
 
 - [Portada de ensayos](https://quantrabbit.github.io/index.html): Catálogo cronológico de todos los ensayos publicados con resumen y etiquetas.
-- [Sobre mí](https://quantrabbit.github.io/sobre-mi.html): Biografía profesional, credenciales, experiencia en Bombo y lineamientos del proyecto editorial.
+- [Sobre mí](https://quantrabbit.github.io/sobre-mi.html): Perfil del sitio y lineamientos del proyecto editorial.
 - [Feed RSS](https://quantrabbit.github.io/rss.xml): Distribución sindicada de ensayos en formato estándar RSS 2.0.
 - [Sitemap](https://quantrabbit.github.io/sitemap.xml): Mapa del sitio para indexación de motores de búsqueda.
 - [Datos estructurados](https://quantrabbit.github.io/datos/articulos.json): Repositorio en formato JSON con la totalidad de los artículos, metadatos, bloques "En corto" y preguntas frecuentes.
