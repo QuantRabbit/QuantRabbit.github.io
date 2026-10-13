@@ -6,36 +6,79 @@
   <title>Página no encontrada | Juan Pablo Sánchez</title>
   <meta name="description" content="La página que buscas no existe o ha cambiado de lugar.">
   <meta name="robots" content="noindex, follow">
+
+  <!-- Prevencion de parpadeo de tema -->
+  <script>
+    (function() {
+      var tema = localStorage.getItem('tema-preferido');
+      if (tema) {
+        document.documentElement.setAttribute('data-tema', tema);
+      }
+    })();
+  </script>
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="css/estilos.css">
+
+  <!-- Logica cliente para conmutador de tema -->
+  <script src="js/app.js" defer></script>
 </head>
 <body>
-  <div class="contenedor">
-    <header class="site-header">
-      <a href="index.html" class="site-title">Juan Pablo Sánchez</a>
-      <nav class="site-nav" aria-label="Navegación principal">
-        <a href="index.html">Ensayos</a>
-        <a href="sobre-mi.html">Sobre mí</a>
-        <a href="rss.xml">RSS</a>
-      </nav>
+  <div class="sitio-wrapper">
+    <!-- Cabecera Editorial GBM Media -->
+    <header class="gbm-header">
+      <div class="contenedor">
+        <div class="gbm-header__top">
+          <a href="index.html" class="marca-editorial">
+            <span class="marca-monograma">JP</span>
+            <div class="marca-info">
+              <span class="marca-nombre">JUAN PABLO SÁNCHEZ</span>
+              <span class="marca-sub">CIO · BOMBO | ENSAYOS</span>
+            </div>
+          </a>
+
+          <div class="gbm-header__acciones">
+            <button type="button" class="btn-tema" aria-label="Cambiar tema">
+              <span>🌙</span><span>OSCURO</span>
+            </button>
+          </div>
+        </div>
+
+        <nav class="gbm-subnav" aria-label="Navegación editorial">
+          <a href="index.html">Ensayos</a>
+          <a href="sobre-mi.html">Sobre mí</a>
+          <a href="rss.xml">RSS Feed</a>
+          <a href="llms.txt">llms.txt</a>
+          <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <h1>404: Página no encontrada</h1>
-      <p style="margin-top: 1rem; color: var(--text-muted);">
-        La dirección solicitada no existe en este sitio. Es posible que el enlace haya cambiado o que el ensayo buscado aún no se haya publicado.
-      </p>
-      <p style="margin-top: 1.5rem;">
-        <a href="index.html" class="enlace-volver">← Regresar a la lista de ensayos</a>
-      </p>
+    <main class="contenedor">
+      <div class="columna-lectura" style="padding: 4rem 0;">
+        <span class="seccion-kicker">ERROR 404</span>
+        <h1 class="single-hero__titulo">Página no encontrada</h1>
+        <p style="font-size: 1.15rem; color: var(--muted); margin-bottom: 2rem;">
+          La dirección solicitada no existe en este sitio. Es posible que el enlace haya cambiado o que el ensayo buscado aún no se haya publicado.
+        </p>
+        <p>
+          <a href="index.html" class="btn-retorno">← Regresar a la lista de ensayos</a>
+        </p>
+      </div>
     </main>
 
-    <footer class="site-footer">
-      <div>© 2026 Juan Pablo Sánchez. Todos los textos se redactan a mano sin IA.</div>
-      <div class="footer-links">
-        <a href="index.html">Ensayos</a>
-        <a href="sobre-mi.html">Sobre mí</a>
-        <a href="llms.txt">llms.txt</a>
-        <a href="rss.xml">RSS</a>
+    <footer class="gbm-footer">
+      <div class="contenedor">
+        <div class="gbm-footer__inner">
+          <p class="gbm-footer__copy">© 2026 Juan Pablo Sánchez. Textos redactados a mano sin inteligencia artificial.</p>
+          <div class="gbm-footer__links">
+            <a href="index.html">Ensayos</a>
+            <a href="sobre-mi.html">Sobre mí</a>
+            <a href="llms.txt">llms.txt</a>
+            <a href="rss.xml">RSS</a>
+            <a href="sitemap.xml">Sitemap</a>
+          </div>
+        </div>
       </div>
     </footer>
   </div>

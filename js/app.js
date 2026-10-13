@@ -1,9 +1,73 @@
 /**
- * Logica de renderizado para el sitio personal de ensayos de Juan Pablo Sanchez
- * Sin dependencias ni frameworks. Compatible con doble clic (file://) y GitHub Pages.
+ * Logica de aplicacion para el sitio personal de ensayos de Juan Pablo Sanchez
+ * Diseno editorial inspirado en GBM Media "The Idea" / WSJ
+ * Sin dependencias externas ni CDNs. Compatible con file:// y GitHub Pages.
  */
 
-// Utilidad para obtener la lista de articulos con respaldo sincronico
+// ==========================================================================
+// Gestion de Tema (Claro / Oscuro) con persistencia
+// ==========================================================================
+
+function obtenerTemaActual() {
+  const guardado = localStorage.getItem('tema-preferido');
+  if (guardado) return guardado;
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'oscuro';
+  }
+  return 'claro';
+}
+
+function aplicarTema(tema) {
+  document.documentElement.setAttribute('data-tema', tema);
+  localStorage.setItem('tema-preferido', tema);
+  actualizarBotonTema(tema);
+}
+
+function actualizarBotonTema(tema) {
+  const botones = document.querySelectorAll('.btn-tema');
+  botones.forEach(btn => {
+    if (tema === 'oscuro') {
+      btn.innerHTML = '<span>☀️</span><span>CLARO</span>';
+      btn.setAttribute('aria-label', 'Cambiar a modo claro');
+      btn.setAttribute('title', 'Cambiar a modo claro editorial');
+    } else {
+      btn.innerHTML = '<span>🌙</span><span>OSCURO</span>';
+      btn.setAttribute('aria-label', 'Cambiar a modo oscuro');
+      btn.setAttribute('title', 'Cambiar a modo oscuro terminal');
+    }
+  });
+}
+
+function inicializarManejadorTema() {
+  const temaInicial = obtenerTemaActual();
+  aplicarTema(temaInicial);
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-tema');
+    if (btn) {
+      e.preventDefault();
+      const actual = document.documentElement.getAttribute('data-tema') || obtenerTemaActual();
+      const nuevo = (actual === 'oscuro') ? 'claro' : 'oscuro';
+      aplicarTema(nuevo);
+    }
+  });
+
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('tema-preferido')) {
+        aplicarTema(e.matches ? 'oscuro' : 'claro');
+      }
+    });
+  }
+}
+
+// Ejecutar inmediatamente para evitar parpadeos
+inicializarManejadorTema();
+
+// ==========================================================================
+// Acceso a Datos de Articulos (Dual: fetch o window.ARTICULOS_DATA)
+// ==========================================================================
+
 async function obtenerArticulos() {
   if (window.location.protocol !== 'file:') {
     try {
@@ -12,13 +76,16 @@ async function obtenerArticulos() {
         return await respuesta.json();
       }
     } catch (e) {
-      // Fallback si la peticion fetch falla
+      // Respaldo silencioso al script precargado
     }
   }
   return window.ARTICULOS_DATA || [];
 }
 
-// Formateador de fechas para espanol de Mexico
+// ==========================================================================
+// Formateadores y utilidades de texto
+// ==========================================================================
+
 function formatearFecha(cadenaFecha) {
   if (!cadenaFecha) return '';
   const partes = cadenaFecha.split('-');
@@ -33,7 +100,6 @@ function formatearFecha(cadenaFecha) {
   return `${dia} de ${mes} de ${ano}`;
 }
 
-// Formateador de fecha corta estilo GBM Media (ej. 12 OCT 2026)
 function formatearFechaCorta(cadenaFecha) {
   if (!cadenaFecha) return '';
   const partes = cadenaFecha.split('-');
@@ -45,7 +111,6 @@ function formatearFechaCorta(cadenaFecha) {
   return `${dia} ${mes} ${ano}`;
 }
 
-// Calculo de tiempo de lectura estimado
 function calcularTiempoLectura(articulo) {
   let palabras = (articulo.titulo || '').split(/\s+/).length;
   if (articulo.subtitulo) palabras += articulo.subtitulo.split(/\s+/).length;
@@ -61,7 +126,6 @@ function calcularTiempoLectura(articulo) {
   return `${minutos} MIN DE LECTURA`;
 }
 
-// Escape simple para prevenir inyecciones no deseadas
 function escaparHTML(texto) {
   if (!texto) return '';
   const div = document.createElement('div');
@@ -69,7 +133,10 @@ function escaparHTML(texto) {
   return div.innerHTML;
 }
 
-// Insercion de JSON-LD dinamico para SEO y motores de IA (GEO)
+// ==========================================================================
+// Insercion dinamica de JSON-LD (SEO y GEO)
+// ==========================================================================
+
 function inyectarMetadatosJSONLD(articulo) {
   const scriptExistente = document.getElementById('jsonld-dinamico');
   if (scriptExistente) {
@@ -143,7 +210,6 @@ function inyectarMetadatosJSONLD(articulo) {
   document.head.appendChild(script);
 }
 
-// Actualizacion de etiquetas meta del encabezado
 function actualizarMetasEncabezado(articulo) {
   document.title = `${articulo.titulo} | Juan Pablo Sánchez`;
 
@@ -163,7 +229,6 @@ function actualizarMetasEncabezado(articulo) {
   }
   canonical.href = `https://quantrabbit.github.io/articulo.html?slug=${articulo.slug}`;
 
-  // Open Graph
   function fijarMeta(propiedad, contenido) {
     let el = document.querySelector(`meta[property="${propiedad}"]`);
     if (!el) {
@@ -179,7 +244,6 @@ function actualizarMetasEncabezado(articulo) {
   fijarMeta('og:type', 'article');
   fijarMeta('og:url', `https://quantrabbit.github.io/articulo.html?slug=${articulo.slug}`);
 
-  // Twitter Card
   function fijarTwitter(nombre, contenido) {
     let el = document.querySelector(`meta[name="${nombre}"]`);
     if (!el) {
@@ -195,7 +259,10 @@ function actualizarMetasEncabezado(articulo) {
   fijarTwitter('twitter:description', articulo.resumen || '');
 }
 
-// Renderizado de portada (index.html)
+// ==========================================================================
+// Renderizado de Portada (index.html) estilo GBM Media "The Idea"
+// ==========================================================================
+
 async function inicializarPortada() {
   const contenedor = document.getElementById('contenedor-articulos');
   if (!contenedor) return;
@@ -206,36 +273,89 @@ async function inicializarPortada() {
     return;
   }
 
-  let html = '<ul class="lista-articulos">';
-  articulos.forEach(art => {
-    const fechaTexto = formatearFechaCorta(art.fecha);
-    const tiempoLectura = calcularTiempoLectura(art);
-    const categoria = art.etiquetas && art.etiquetas[0] ? art.etiquetas[0].toUpperCase() : 'THE IDEA';
-    const etiquetasHtml = (art.etiquetas || [])
-      .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
-      .join(' ');
+  const destacado = articulos[0];
+  const secundarios = articulos.slice(1);
+
+  // 1. Tarjeta Destacada (archive__featured)
+  const fechaDestacada = formatearFechaCorta(destacado.fecha);
+  const tiempoDestacada = calcularTiempoLectura(destacado);
+  const kickerDestacado = destacado.etiquetas && destacado.etiquetas[0] ? destacado.etiquetas[0].toUpperCase() : 'EDITORIAL';
+  const etiquetasDestacadasHtml = (destacado.etiquetas || [])
+    .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
+    .join(' ');
+
+  let html = `
+    <!-- Bloque Destacado -->
+    <section class="seccion-destacada" aria-label="Ensayo destacado">
+      <a href="articulo.html?slug=${encodeURIComponent(destacado.slug)}" class="card-destacada">
+        <div class="card-destacada__tags">
+          <span class="tag-pill tag-pill--solid">NUEVO</span>
+          <span class="seccion-kicker">${escaparHTML(kickerDestacado)}</span>
+        </div>
+        <h2 class="card-destacada__titulo">${escaparHTML(destacado.titulo)}</h2>
+        <p class="card-destacada__resumen">${escaparHTML(destacado.resumen)}</p>
+        <div class="meta-container">
+          <span class="meta-fecha">${escaparHTML(fechaDestacada)}</span>
+          <span class="meta-separador">·</span>
+          <span class="meta-tiempo">${escaparHTML(tiempoDestacada)}</span>
+          <span class="meta-separador">·</span>
+          <span class="meta-autor">POR JUAN PABLO SÁNCHEZ</span>
+        </div>
+        <div class="etiquetas">${etiquetasDestacadasHtml}</div>
+      </a>
+    </section>
+  `;
+
+  // 2. Cuadricula de Ensayos Secundarios (archive__grid)
+  if (secundarios.length > 0) {
+    html += `
+      <section class="seccion-grid" aria-label="Más ensayos publicados">
+        <h2 class="seccion-grid__titulo-bloque">Más publicaciones</h2>
+        <div class="grid-articulos">
+    `;
+
+    secundarios.forEach(art => {
+      const fechaCorta = formatearFechaCorta(art.fecha);
+      const tiempo = calcularTiempoLectura(art);
+      const kicker = art.etiquetas && art.etiquetas[0] ? art.etiquetas[0].toUpperCase() : 'THE IDEA';
+      const tagsHtml = (art.etiquetas || [])
+        .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
+        .join(' ');
+
+      html += `
+        <a href="articulo.html?slug=${encodeURIComponent(art.slug)}" class="card-articulo">
+          <div class="card-articulo__top">
+            <div class="card-articulo__kicker">
+              <span class="seccion-kicker">${escaparHTML(kicker)}</span>
+            </div>
+            <h3 class="card-articulo__titulo">${escaparHTML(art.titulo)}</h3>
+            <p class="card-articulo__resumen">${escaparHTML(art.resumen)}</p>
+          </div>
+          <div class="card-articulo__bottom">
+            <div class="meta-container">
+              <span class="meta-fecha">${escaparHTML(fechaCorta)}</span>
+              <span class="meta-separador">·</span>
+              <span class="meta-tiempo">${escaparHTML(tiempo)}</span>
+            </div>
+            <div class="etiquetas">${tagsHtml}</div>
+          </div>
+        </a>
+      `;
+    });
 
     html += `
-      <li class="item-articulo">
-        <span class="seccion-kicker">${escaparHTML(categoria)}</span>
-        <h2 class="item-articulo-titulo">
-          <a href="articulo.html?slug=${encodeURIComponent(art.slug)}">${escaparHTML(art.titulo)}</a>
-        </h2>
-        <p class="item-articulo-resumen">${escaparHTML(art.resumen)}</p>
-        <div class="articulo-meta" style="margin-bottom: 0.75rem; padding-bottom: 0; border-bottom: none;">
-          <time datetime="${escaparHTML(art.fecha)}">${escaparHTML(fechaTexto)}</time>
-          <span>${escaparHTML(tiempoLectura)}</span>
         </div>
-        <div class="etiquetas">${etiquetasHtml}</div>
-      </li>
+      </section>
     `;
-  });
-  html += '</ul>';
+  }
 
   contenedor.innerHTML = html;
 }
 
-// Renderizado de articulo individual (articulo.html)
+// ==========================================================================
+// Renderizado de Articulo Individual (articulo.html) estilo GBM The Idea
+// ==========================================================================
+
 async function inicializarArticulo() {
   const contenedor = document.getElementById('contenedor-articulo');
   if (!contenedor) return;
@@ -247,10 +367,12 @@ async function inicializarArticulo() {
   if (!slug) {
     let enlaces = articulos.map(a => `<li><a href="articulo.html?slug=${encodeURIComponent(a.slug)}">${escaparHTML(a.titulo)}</a></li>`).join('');
     contenedor.innerHTML = `
-      <a href="index.html" class="enlace-volver">← Volver al inicio</a>
-      <h1>Selecciona un ensayo</h1>
-      <p>No se especificó ningún artículo en el enlace. Elige uno de la lista a continuación:</p>
-      <ul>${enlaces}</ul>
+      <div class="columna-lectura" style="padding: 3rem 0;">
+        <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
+        <h1 class="single-hero__titulo">Selecciona un ensayo</h1>
+        <p>No se especificó ningún artículo en el enlace. Elige uno de la lista a continuación:</p>
+        <ul style="margin: 1.5rem 0; padding-left: 1.5rem;">${enlaces}</ul>
+      </div>
     `;
     return;
   }
@@ -259,10 +381,12 @@ async function inicializarArticulo() {
 
   if (!articulo) {
     contenedor.innerHTML = `
-      <a href="index.html" class="enlace-volver">← Volver al inicio</a>
-      <h1>Ensayo no encontrado</h1>
-      <p>El ensayo con el identificador <code>${escaparHTML(slug)}</code> no existe en el sistema.</p>
-      <p><a href="index.html">Ir a la lista de todos los ensayos</a></p>
+      <div class="columna-lectura" style="padding: 3rem 0;">
+        <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
+        <h1 class="single-hero__titulo">Ensayo no encontrado</h1>
+        <p>El ensayo con el identificador <code>${escaparHTML(slug)}</code> no existe en el sistema.</p>
+        <p><a href="index.html">Ir a la lista de todos los ensayos</a></p>
+      </div>
     `;
     return;
   }
@@ -273,31 +397,50 @@ async function inicializarArticulo() {
   const fechaCorta = formatearFechaCorta(articulo.fecha);
   const tiempoLectura = calcularTiempoLectura(articulo);
   const categoria = articulo.etiquetas && articulo.etiquetas[0] ? articulo.etiquetas[0].toUpperCase() : 'THE IDEA';
-  const etiquetasHtml = (articulo.etiquetas || [])
-    .map(t => `<span class="etiqueta">${escaparHTML(t)}</span>`)
-    .join(' ');
+  const urlActual = window.location.href;
+  const textoCompartir = encodeURIComponent(`${articulo.titulo} | Juan Pablo Sánchez: `);
 
   let html = `
-    <a href="index.html" class="enlace-volver">← Regresar a Ensayos</a>
-    <article>
-      <header>
-        <span class="seccion-kicker">${escaparHTML(categoria)}</span>
-        <h1>${escaparHTML(articulo.titulo)}</h1>
-        ${articulo.subtitulo ? `<div class="subtitulo-articulo">${escaparHTML(articulo.subtitulo)}</div>` : ''}
-        <div class="articulo-meta">
-          <time datetime="${escaparHTML(articulo.fecha)}">${escaparHTML(fechaCorta)}</time>
-          <span>${escaparHTML(tiempoLectura)}</span>
-          <span class="meta-autor">Por <a href="sobre-mi.html">${escaparHTML(articulo.autor ? articulo.autor.nombre : 'Juan Pablo Sánchez')}</a></span>
-          ${articulo.fechaActualizacion && articulo.fechaActualizacion !== articulo.fecha ? `<span>(ACTUALIZADO: ${escaparHTML(formatearFechaCorta(articulo.fechaActualizacion))})</span>` : ''}
+    <div class="columna-lectura">
+      <header class="single-hero">
+        <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
+        <div class="single-hero__tags">
+          <span class="tag-pill tag-pill--outline">EDITORIAL</span>
+          <span class="seccion-kicker">${escaparHTML(categoria)}</span>
+        </div>
+        <h1 class="single-hero__titulo">${escaparHTML(articulo.titulo)}</h1>
+        ${articulo.subtitulo ? `<p class="single-hero__bajada">${escaparHTML(articulo.subtitulo)}</p>` : ''}
+        <div class="meta-container single-hero__meta">
+          <span class="meta-fecha"><time datetime="${escaparHTML(articulo.fecha)}">${escaparHTML(fechaCorta)}</time></span>
+          <span class="meta-separador">·</span>
+          <span class="meta-tiempo">${escaparHTML(tiempoLectura)}</span>
+          <span class="meta-separador">·</span>
+          <span class="meta-autor">POR <a href="sobre-mi.html" style="color: inherit; text-decoration: underline;">${escaparHTML(articulo.autor ? articulo.autor.nombre : 'Juan Pablo Sánchez')}</a></span>
+          <span class="meta-separador">·</span>
+          <span class="meta-badge">TEXTO SIN IA</span>
+          ${articulo.fechaActualizacion && articulo.fechaActualizacion !== articulo.fecha ? `<span class="meta-separador">·</span><span>ACTUALIZADO: ${escaparHTML(formatearFechaCorta(articulo.fechaActualizacion))}</span>` : ''}
         </div>
       </header>
+
+      <!-- Barra para compartir -->
+      <div class="single-share">
+        <span class="single-share__label">Compartir:</span>
+        <a href="https://wa.me/?text=${textoCompartir}${encodeURIComponent(urlActual)}" target="_blank" rel="noopener noreferrer" class="btn-share">WhatsApp</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(urlActual)}" target="_blank" rel="noopener noreferrer" class="btn-share">LinkedIn</a>
+        <a href="https://twitter.com/intent/tweet?text=${textoCompartir}&url=${encodeURIComponent(urlActual)}" target="_blank" rel="noopener noreferrer" class="btn-share">X</a>
+        <button type="button" class="btn-share" id="btn-copiar-enlace" onclick="navigator.clipboard.writeText(window.location.href); this.textContent='¡Copiado!'; setTimeout(() => this.textContent='Copiar enlace', 2000);">Copiar enlace</button>
+      </div>
   `;
 
   // Bloque "En corto" para lectura rapida y motores de IA (GEO)
   if (articulo.enCorto && articulo.enCorto.length > 0) {
     html += `
       <section class="en-corto" aria-label="Resumen ejecutivo">
-        <h2>En corto</h2>
+        <div class="en-corto__header">
+          <span style="font-size: 1.1rem;">⚡</span>
+          <span class="en-corto__kicker">EN CORTO: SÍNTESIS EJECUTIVA</span>
+        </div>
+        <p class="en-corto__intro">Puntos clave autosuficientes para directores generales y referencia directa en motores de respuesta (GEO):</p>
         <ul>
     `;
     articulo.enCorto.forEach(punto => {
@@ -348,7 +491,7 @@ async function inicializarArticulo() {
   if (articulo.faq && articulo.faq.length > 0) {
     html += `
       <section class="faq-seccion" aria-label="Preguntas frecuentes">
-        <h2>Preguntas frecuentes</h2>
+        <h2 class="faq-seccion__titulo">Preguntas frecuentes</h2>
     `;
     articulo.faq.forEach(item => {
       html += `
@@ -375,46 +518,52 @@ async function inicializarArticulo() {
     html += `
       <section class="fuentes-seccion" aria-label="Fuentes y referencias">
         <h2>Fuentes primarias y referencias</h2>
-        <div class="fuentes-caja">
-          <ul class="fuentes-lista">
+        <ul class="fuentes-lista">
     `;
     articulo.fuentes.forEach(fuente => {
       html += `
-            <li>
-              <strong>${escaparHTML(fuente.nombre)}</strong>${fuente.ano ? ` (${escaparHTML(fuente.ano)})` : ''}: 
-              <a href="${escaparHTML(fuente.url)}" target="_blank" rel="noopener noreferrer">${escaparHTML(fuente.descripcion || fuente.url)}</a>
-            </li>
+        <li>
+          <strong>${escaparHTML(fuente.nombre)}</strong>${fuente.ano ? ` (${escaparHTML(fuente.ano)})` : ''}: 
+          <a href="${escaparHTML(fuente.url)}" target="_blank" rel="noopener noreferrer">${escaparHTML(fuente.descripcion || fuente.url)}</a>
+        </li>
       `;
     });
     html += `
-          </ul>
-        </div>
+        </ul>
       </section>
     `;
   }
 
-  // Modulo de autor al pie
+  // Tarjeta de autor al pie
   html += `
-      <footer class="autor-box">
-        <h3>Sobre el autor</h3>
-        <p>
-          <strong>Juan Pablo Sánchez</strong> es cofundador y CIO de Bombo (fintech mexicana de ahorro) y estudiante de Ingeniería Financiera. Escribe ensayos sobre economía, política, inversión y vida económica dirigidos a fundadores y directores generales.
-        </p>
-        <p>
-          <a href="sobre-mi.html">Conocer más sobre Juan Pablo y el enfoque del sitio →</a>
-        </p>
-      </footer>
-    </article>
-    <div style="margin-top: 2.5rem;">
-      <a href="index.html" class="enlace-volver">← Volver a la lista de todos los ensayos</a>
+      <div class="autor-card">
+        <div class="autor-card__monograma">JP</div>
+        <div class="autor-card__body">
+          <h3>Juan Pablo Sánchez</h3>
+          <p class="autor-card__cargo">Cofundador y CIO de Bombo · Estudiante de Ingeniería Financiera</p>
+          <p class="autor-card__bio">
+            Escribe ensayos sobre macroeconomía, decisiones de tesorería, regulación fintech e inversión estratégica dirigidos a directores generales y fundadores. Redacta todos sus textos personalmente sin asistencia de inteligencia artificial.
+          </p>
+          <a href="sobre-mi.html" class="autor-card__enlace">Leer más sobre Juan Pablo y los principios de este sitio →</a>
+        </div>
+      </div>
+
+      <div style="margin: 3rem 0 1rem 0;">
+        <a href="index.html" class="btn-retorno">← Regresar a la lista de todos los ensayos</a>
+      </div>
     </div>
   `;
 
   contenedor.innerHTML = html;
 }
 
+// ==========================================================================
 // Inicializacion al cargar el DOM
+// ==========================================================================
+
 document.addEventListener('DOMContentLoaded', () => {
+  actualizarBotonTema(obtenerTemaActual());
+
   if (document.getElementById('contenedor-articulos')) {
     inicializarPortada();
   } else if (document.getElementById('contenedor-articulo')) {

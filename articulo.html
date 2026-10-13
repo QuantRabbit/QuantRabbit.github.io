@@ -21,6 +21,16 @@
   <meta name="twitter:title" content="Ensayo | Juan Pablo Sánchez">
   <meta name="twitter:description" content="Canal personal de ensayos sobre economía, política e inversión.">
 
+  <!-- Prevencion de parpadeo de tema -->
+  <script>
+    (function() {
+      var tema = localStorage.getItem('tema-preferido');
+      if (tema) {
+        document.documentElement.setAttribute('data-tema', tema);
+      }
+    })();
+  </script>
+
   <!-- Estilos -->
   <link rel="stylesheet" href="css/estilos.css">
 
@@ -29,33 +39,66 @@
   <script src="js/app.js" defer></script>
 </head>
 <body>
-  <div class="contenedor">
-    <header class="site-header">
-      <a href="index.html" class="site-title">Juan Pablo Sánchez</a>
-      <nav class="site-nav" aria-label="Navegación principal">
-        <a href="index.html">Ensayos</a>
-        <a href="sobre-mi.html">Sobre mí</a>
-        <a href="rss.xml">RSS</a>
-      </nav>
+  <div class="sitio-wrapper">
+    <!-- Cabecera Editorial GBM Media -->
+    <header class="gbm-header">
+      <div class="contenedor">
+        <div class="gbm-header__top">
+          <a href="index.html" class="marca-editorial">
+            <span class="marca-monograma">JP</span>
+            <div class="marca-info">
+              <span class="marca-nombre">JUAN PABLO SÁNCHEZ</span>
+              <span class="marca-sub">CIO · BOMBO | ENSAYOS</span>
+            </div>
+          </a>
+
+          <div class="gbm-header__acciones">
+            <div class="header-fecha-bloque">
+              <p class="header-fecha">13 DE OCTUBRE</p>
+              <p class="header-subfecha">Canal editorial personal</p>
+            </div>
+            <button type="button" class="btn-tema" aria-label="Cambiar tema">
+              <span>🌙</span><span>OSCURO</span>
+            </button>
+          </div>
+        </div>
+
+        <nav class="gbm-subnav" aria-label="Navegación editorial">
+          <a href="index.html">Ensayos</a>
+          <a href="sobre-mi.html">Sobre mí</a>
+          <a href="rss.xml">RSS Feed</a>
+          <a href="llms.txt">llms.txt</a>
+          <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+      </div>
     </header>
 
-    <main id="contenedor-articulo">
-      <!-- Mensaje para entornos sin JavaScript activo o carga inicial -->
+    <!-- Contenedor Principal de Lectura -->
+    <main class="contenedor" id="contenedor-articulo">
       <noscript>
-        <p>Este sitio utiliza JavaScript mínimo para presentar los ensayos. Si tu navegador no tiene JavaScript activo, puedes consultar el archivo <a href="datos/articulos.json">datos/articulos.json</a> o el feed <a href="rss.xml">rss.xml</a> directamente.</p>
+        <div class="columna-lectura" style="padding: 3rem 0;">
+          <p>Este sitio utiliza JavaScript ligero para presentar los ensayos con formato interactivo. Si tu navegador no ejecuta scripts, puedes consultar directamente los datos en <a href="datos/articulos.json">datos/articulos.json</a> o suscribirte a <a href="rss.xml">rss.xml</a>.</p>
+        </div>
       </noscript>
-      <div style="padding: 2rem 0; color: var(--text-muted);">
+      <div class="columna-lectura" style="padding: 3.5rem 0; color: var(--muted);">
         Cargando ensayo...
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div>© 2026 Juan Pablo Sánchez. Todos los textos se redactan a mano sin IA.</div>
-      <div class="footer-links">
-        <a href="sobre-mi.html">Sobre mí</a>
-        <a href="llms.txt">llms.txt</a>
-        <a href="rss.xml">RSS</a>
-        <a href="sitemap.xml">Sitemap</a>
+    <!-- Pie de pagina editorial GBM Media -->
+    <footer class="gbm-footer">
+      <div class="contenedor">
+        <div class="gbm-footer__inner">
+          <p class="gbm-footer__copy">© 2026 Juan Pablo Sánchez. Textos redactados a mano sin inteligencia artificial.</p>
+          <div class="gbm-footer__links">
+            <a href="index.html">Ensayos</a>
+            <a href="sobre-mi.html">Sobre mí</a>
+            <a href="llms.txt">llms.txt</a>
+            <a href="rss.xml">RSS</a>
+            <a href="sitemap.xml">Sitemap</a>
+            <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
       </div>
     </footer>
   </div>

@@ -27,6 +27,16 @@
   <!-- RSS y llms.txt -->
   <link rel="alternate" type="application/rss+xml" title="Feed RSS de Juan Pablo Sánchez" href="rss.xml">
 
+  <!-- Prevencion de parpadeo de tema -->
+  <script>
+    (function() {
+      var tema = localStorage.getItem('tema-preferido');
+      if (tema) {
+        document.documentElement.setAttribute('data-tema', tema);
+      }
+    })();
+  </script>
+
   <!-- Estilos -->
   <link rel="stylesheet" href="css/estilos.css">
 
@@ -65,77 +75,128 @@
   }
   </script>
 
-  <!-- Datos y logica sin dependencias -->
+  <!-- Datos y logica cliente sin dependencias -->
   <script src="datos/articulos.js"></script>
   <script src="js/app.js" defer></script>
 </head>
 <body>
-  <div class="contenedor">
-    <header class="site-header">
-      <a href="index.html" class="site-title">Juan Pablo Sánchez</a>
-      <nav class="site-nav" aria-label="Navegación principal">
-        <a href="index.html" class="activo" aria-current="page">Ensayos</a>
-        <a href="sobre-mi.html">Sobre mí</a>
-        <a href="rss.xml">RSS</a>
-      </nav>
+  <div class="sitio-wrapper">
+    <!-- Cabecera Editorial GBM Media -->
+    <header class="gbm-header">
+      <div class="contenedor">
+        <div class="gbm-header__top">
+          <a href="index.html" class="marca-editorial">
+            <span class="marca-monograma">JP</span>
+            <div class="marca-info">
+              <span class="marca-nombre">JUAN PABLO SÁNCHEZ</span>
+              <span class="marca-sub">CIO · BOMBO | ENSAYOS</span>
+            </div>
+          </a>
+
+          <div class="gbm-header__acciones">
+            <div class="header-fecha-bloque">
+              <p class="header-fecha">13 DE OCTUBRE</p>
+              <p class="header-subfecha">Canal editorial personal</p>
+            </div>
+            <button type="button" class="btn-tema" aria-label="Cambiar tema">
+              <span>🌙</span><span>OSCURO</span>
+            </button>
+          </div>
+        </div>
+
+        <nav class="gbm-subnav" aria-label="Navegación editorial">
+          <a href="index.html" class="activo" aria-current="page">Ensayos</a>
+          <a href="sobre-mi.html">Sobre mí</a>
+          <a href="rss.xml">RSS Feed</a>
+          <a href="llms.txt">llms.txt</a>
+          <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <h1>Ensayos</h1>
-      <p style="color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.05rem;">
-        Reflexiones sobre economía, política, inversión y vida económica. Escrito para fundadores y directores generales que necesitan entender la lógica del dinero y las decisiones estratégicas sin tecnicismos innecesarios.
-      </p>
+    <!-- Contenido Principal -->
+    <main class="contenedor">
+      <!-- Seccion Hero / Intro -->
+      <section class="archive-intro">
+        <span class="archive-intro__kicker">EDITORIAL</span>
+        <h1 class="archive-intro__titulo">The Idea / Ensayos</h1>
+        <p class="archive-intro__bajada">
+          Reflexiones sobre economía, política, inversión y vida económica. Escrito para fundadores y directores generales que necesitan entender la lógica del dinero y las decisiones estratégicas sin tecnicismos innecesarios.
+        </p>
+      </section>
 
-      <section id="contenedor-articulos" aria-label="Lista de ensayos publicados">
-        <!-- Contenido base estático para navegadores sin JavaScript y rastreadores web -->
-        <ul class="lista-articulos">
-          <li class="item-articulo">
-            <span class="seccion-kicker">EDITORIAL</span>
-            <h2 class="item-articulo-titulo">
-              <a href="articulo.html?slug=por-que-existe-esta-pagina">Por qué existe esta página</a>
-            </h2>
-            <p class="item-articulo-resumen">
+      <!-- Contenedor dinamico e interactivo de articulos -->
+      <div id="contenedor-articulos">
+        <!-- Respaldo estatico para motores de busqueda y navegadores sin JS -->
+        <section class="seccion-destacada" aria-label="Ensayo destacado">
+          <a href="articulo.html?slug=por-que-existe-esta-pagina" class="card-destacada">
+            <div class="card-destacada__tags">
+              <span class="tag-pill tag-pill--solid">NUEVO</span>
+              <span class="seccion-kicker">EDITORIAL</span>
+            </div>
+            <h2 class="card-destacada__titulo">Por qué existe esta página</h2>
+            <p class="card-destacada__resumen">
               [Pendiente de redacción por Juan Pablo: síntesis de los motivos del sitio, audiencia de directores generales y reglas editoriales.]
             </p>
-            <div class="articulo-meta" style="margin-bottom: 0.75rem; padding-bottom: 0; border-bottom: none;">
-              <time datetime="2026-10-12">12 OCT 2026</time>
-              <span>4 MIN DE LECTURA</span>
+            <div class="meta-container">
+              <span class="meta-fecha">12 OCT 2026</span>
+              <span class="meta-separador">·</span>
+              <span class="meta-tiempo">4 MIN DE LECTURA</span>
+              <span class="meta-separador">·</span>
+              <span class="meta-autor">POR JUAN PABLO SÁNCHEZ</span>
             </div>
             <div class="etiquetas">
               <span class="etiqueta">editorial</span>
               <span class="etiqueta">economía</span>
               <span class="etiqueta">principios</span>
             </div>
-          </li>
-          <li class="item-articulo">
-            <span class="seccion-kicker">THE IDEA</span>
-            <h2 class="item-articulo-titulo">
-              <a href="articulo.html?slug=ejemplo-de-ensayo">Estructura de ensayo [PLACEHOLDER]</a>
-            </h2>
-            <p class="item-articulo-resumen">
-              [PLACEHOLDER: Resumen ejecutivo del ensayo de ejemplo para buscadores e indexación en motores de respuesta.]
-            </p>
-            <div class="articulo-meta" style="margin-bottom: 0.75rem; padding-bottom: 0; border-bottom: none;">
-              <time datetime="2026-10-12">12 OCT 2026</time>
-              <span>5 MIN DE LECTURA</span>
-            </div>
-            <div class="etiquetas">
-              <span class="etiqueta">ejemplo</span>
-              <span class="etiqueta">plantilla</span>
-              <span class="etiqueta">placeholder</span>
-            </div>
-          </li>
-        </ul>
-      </section>
+          </a>
+        </section>
+
+        <section class="seccion-grid" aria-label="Más ensayos publicados">
+          <h2 class="seccion-grid__titulo-bloque">Más publicaciones</h2>
+          <div class="grid-articulos">
+            <a href="articulo.html?slug=ejemplo-de-ensayo" class="card-articulo">
+              <div class="card-articulo__top">
+                <div class="card-articulo__kicker">
+                  <span class="seccion-kicker">THE IDEA</span>
+                </div>
+                <h3 class="card-articulo__titulo">Estructura de ensayo [PLACEHOLDER]</h3>
+                <p class="card-articulo__resumen">
+                  [PLACEHOLDER: Resumen ejecutivo del ensayo de ejemplo para buscadores e indexación en motores de respuesta.]
+                </p>
+              </div>
+              <div class="card-articulo__bottom">
+                <div class="meta-container">
+                  <span class="meta-fecha">12 OCT 2026</span>
+                  <span class="meta-separador">·</span>
+                  <span class="meta-tiempo">5 MIN DE LECTURA</span>
+                </div>
+                <div class="etiquetas">
+                  <span class="etiqueta">ejemplo</span>
+                  <span class="etiqueta">plantilla</span>
+                  <span class="etiqueta">placeholder</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      </div>
     </main>
 
-    <footer class="site-footer">
-      <div>© 2026 Juan Pablo Sánchez. Todos los textos se redactan a mano sin IA.</div>
-      <div class="footer-links">
-        <a href="sobre-mi.html">Sobre mí</a>
-        <a href="llms.txt">llms.txt</a>
-        <a href="rss.xml">RSS</a>
-        <a href="sitemap.xml">Sitemap</a>
+    <!-- Pie de pagina editorial GBM Media -->
+    <footer class="gbm-footer">
+      <div class="contenedor">
+        <div class="gbm-footer__inner">
+          <p class="gbm-footer__copy">© 2026 Juan Pablo Sánchez. Textos redactados a mano sin inteligencia artificial.</p>
+          <div class="gbm-footer__links">
+            <a href="sobre-mi.html">Sobre mí</a>
+            <a href="llms.txt">llms.txt</a>
+            <a href="rss.xml">RSS</a>
+            <a href="sitemap.xml">Sitemap</a>
+            <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
       </div>
     </footer>
   </div>

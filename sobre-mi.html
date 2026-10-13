@@ -24,6 +24,16 @@
   <meta name="twitter:title" content="Sobre mí | Juan Pablo Sánchez">
   <meta name="twitter:description" content="Cofundador y CIO de Bombo. Ensayos sobre economía, política e inversión para fundadores y directores generales.">
 
+  <!-- Prevencion de parpadeo de tema -->
+  <script>
+    (function() {
+      var tema = localStorage.getItem('tema-preferido');
+      if (tema) {
+        document.documentElement.setAttribute('data-tema', tema);
+      }
+    })();
+  </script>
+
   <!-- Estilos -->
   <link rel="stylesheet" href="css/estilos.css">
 
@@ -58,81 +68,128 @@
     ]
   }
   </script>
+
+  <!-- Logica para conmutador de tema -->
+  <script src="js/app.js" defer></script>
 </head>
 <body>
-  <div class="contenedor">
-    <header class="site-header">
-      <a href="index.html" class="site-title">Juan Pablo Sánchez</a>
-      <nav class="site-nav" aria-label="Navegación principal">
-        <a href="index.html">Ensayos</a>
-        <a href="sobre-mi.html" class="activo" aria-current="page">Sobre mí</a>
-        <a href="rss.xml">RSS</a>
-      </nav>
+  <div class="sitio-wrapper">
+    <!-- Cabecera Editorial GBM Media -->
+    <header class="gbm-header">
+      <div class="contenedor">
+        <div class="gbm-header__top">
+          <a href="index.html" class="marca-editorial">
+            <span class="marca-monograma">JP</span>
+            <div class="marca-info">
+              <span class="marca-nombre">JUAN PABLO SÁNCHEZ</span>
+              <span class="marca-sub">CIO · BOMBO | ENSAYOS</span>
+            </div>
+          </a>
+
+          <div class="gbm-header__acciones">
+            <div class="header-fecha-bloque">
+              <p class="header-fecha">13 DE OCTUBRE</p>
+              <p class="header-subfecha">Canal editorial personal</p>
+            </div>
+            <button type="button" class="btn-tema" aria-label="Cambiar tema">
+              <span>🌙</span><span>OSCURO</span>
+            </button>
+          </div>
+        </div>
+
+        <nav class="gbm-subnav" aria-label="Navegación editorial">
+          <a href="index.html">Ensayos</a>
+          <a href="sobre-mi.html" class="activo" aria-current="page">Sobre mí</a>
+          <a href="rss.xml">RSS Feed</a>
+          <a href="llms.txt">llms.txt</a>
+          <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <article>
-        <h1>Sobre mí</h1>
-        <p class="subtitulo-articulo">Bio, credenciales y principios de este espacio</p>
+    <!-- Contenido Principal -->
+    <main class="contenedor">
+      <div class="columna-lectura" style="padding: 2.5rem 0 4rem 0;">
+        <header class="single-hero" style="margin-bottom: 2rem;">
+          <div class="single-hero__tags">
+            <span class="tag-pill tag-pill--solid">PERFIL</span>
+            <span class="seccion-kicker">CREDENCIALES Y ENFOQUE</span>
+          </div>
+          <h1 class="single-hero__titulo">Sobre mí</h1>
+          <p class="single-hero__bajada">Bio, trayectoria y compromisos metodológicos de este espacio</p>
+        </header>
 
-        <section>
-          <h2>Quién soy</h2>
-          <p>
-            Soy Juan Pablo Sánchez. Soy cofundador y Chief Investment Officer (CIO) de <strong>Bombo</strong>, una fintech mexicana enfocada en el ahorro y la inversión accesible. En paralelo a la operación de la empresa, estudio la carrera de <strong>Ingeniería Financiera</strong>.
-          </p>
-          <p>
-            Mi trabajo diario combina la asignación de recursos, el diseño de productos financieros y la comprensión profunda de la regulación y los mercados de capital en México.
-          </p>
-        </section>
+        <article class="cuerpo-articulo">
+          <section>
+            <h2>Quién soy</h2>
+            <p>
+              Soy Juan Pablo Sánchez. Soy cofundador y Chief Investment Officer (CIO) de <strong>Bombo</strong>, una fintech mexicana enfocada en el ahorro y la inversión accesible. En paralelo a la operación de la empresa, estudio la carrera de <strong>Ingeniería Financiera</strong>.
+            </p>
+            <p>
+              Mi trabajo diario combina la asignación de recursos, el diseño de productos financieros y la comprensión profunda de la regulación y los mercados de capital en México.
+            </p>
+          </section>
 
-        <section>
-          <h2>De qué trata este sitio</h2>
-          <p>
-            Este es mi canal personal de ensayos. Aquí escribo sobre cuatro temas centrales:
-          </p>
-          <ul>
-            <li><strong>Economía:</strong> macroeconomía aplicada, política monetaria del Banco de México y dinámica productiva nacional.</li>
-            <li><strong>Política:</strong> instituciones, incentivos regulatorios y el impacto de las decisiones gubernamentales en las empresas.</li>
-            <li><strong>Inversión:</strong> asignación eficiente de capital, tasas de interés, inflación y estructuras de rendimiento real.</li>
-            <li><strong>Vida económica:</strong> la realidad diaria de operar un negocio, contratar talento y generar valor en un mercado emergente.</li>
-          </ul>
-        </section>
+          <section>
+            <h2>De qué trata este sitio</h2>
+            <p>
+              Este es mi canal personal de ensayos. Aquí escribo sobre cuatro temas centrales:
+            </p>
+            <ul>
+              <li><strong>Economía:</strong> macroeconomía aplicada, política monetaria del Banco de México y dinámica productiva nacional.</li>
+              <li><strong>Política:</strong> instituciones, incentivos regulatorios y el impacto de las decisiones gubernamentales en las empresas.</li>
+              <li><strong>Inversión:</strong> asignación eficiente de capital, tasas de interés, inflación y estructuras de rendimiento real.</li>
+              <li><strong>Vida económica:</strong> la realidad diaria de operar un negocio, contratar talento y generar valor en un mercado emergente.</li>
+            </ul>
+          </section>
 
-        <section>
-          <h2>A quién me dirijo</h2>
-          <p>
-            Escribo para <strong>fundadores y directores generales</strong>, no para analistas financieros de pizarrón. Quien lidera una compañía no necesita jerga matemática innecesaria, sino modelos mentales sólidos para tomar decisiones de tesorería, endeudamiento y crecimiento.
-          </p>
-          <p>
-            Por eso tuteo al lector y busco ir directo al grano: una idea por frase, argumentos respaldados con datos primarios y conclusiones prácticas.
-          </p>
-        </section>
+          <section>
+            <h2>A quién me dirijo</h2>
+            <p>
+              Escribo para <strong>fundadores y directores generales</strong>, no para analistas financieros de pizarrón. Quien lidera una compañía no necesita jerga matemática innecesaria, sino modelos mentales sólidos para tomar decisiones de tesorería, endeudamiento y crecimiento.
+            </p>
+            <p>
+              Por eso tuteo al lector y busco ir directo al grano: una idea por frase, argumentos respaldados con datos primarios y conclusiones prácticas.
+            </p>
+          </section>
 
-        <section>
-          <h2>Compromisos editoriales</h2>
-          <ul>
-            <li><strong>Sin borradores de IA:</strong> Todos los ensayos los redacto personalmente desde el primer borrador. La inteligencia artificial no redacta mis textos.</li>
-            <li><strong>Datos con año y fuente:</strong> Cada estadística o cifra menciona de forma explícita el año de referencia y la fuente emisora (Banxico, INEGI, CNBV, SHCP) en la misma oración.</li>
-            <li><strong>Optimización para citas:</strong> Cada artículo incluye una sección "En corto" con puntos autosuficientes pensados para que tanto personas como modelos de IA puedan consultar y citar información fidedigna.</li>
-          </ul>
-        </section>
+          <section class="fuentes-seccion" style="margin: 2.5rem 0;">
+            <h2 style="margin-top: 0;">Compromisos editoriales</h2>
+            <ul class="fuentes-lista">
+              <li><strong>Sin borradores de IA:</strong> Todos los ensayos los redacto personalmente desde el primer borrador. La inteligencia artificial no redacta mis textos.</li>
+              <li><strong>Datos con año y fuente:</strong> Cada estadística o cifra menciona de forma explícita el año de referencia y la fuente emisora (Banxico, INEGI, CNBV, SHCP) en la misma oración.</li>
+              <li><strong>Optimización para citas (GEO):</strong> Cada artículo incluye una sección "En corto" con puntos autosuficientes pensados para que tanto personas como modelos de IA puedan consultar y citar información fidedigna.</li>
+            </ul>
+          </section>
 
-        <section>
-          <h2>Contacto y enlaces</h2>
-          <p>
-            Puedes revisar mi trabajo en código y proyectos abiertos en <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub (@QuantRabbit)</a> o seguir las publicaciones mediante el <a href="rss.xml">feed RSS</a> del sitio.
-          </p>
-        </section>
-      </article>
+          <section>
+            <h2>Contacto y proyectos abiertos</h2>
+            <p>
+              Puedes revisar mi trabajo en código y proyectos abiertos en <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub (@QuantRabbit)</a> o suscribirte a las entregas mediante el <a href="rss.xml">feed RSS</a> del sitio.
+            </p>
+          </section>
+        </article>
+
+        <div style="margin-top: 3rem;">
+          <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
+        </div>
+      </div>
     </main>
 
-    <footer class="site-footer">
-      <div>© 2026 Juan Pablo Sánchez. Todos los textos se redactan a mano sin IA.</div>
-      <div class="footer-links">
-        <a href="index.html">Ensayos</a>
-        <a href="llms.txt">llms.txt</a>
-        <a href="rss.xml">RSS</a>
-        <a href="sitemap.xml">Sitemap</a>
+    <!-- Pie de pagina editorial GBM Media -->
+    <footer class="gbm-footer">
+      <div class="contenedor">
+        <div class="gbm-footer__inner">
+          <p class="gbm-footer__copy">© 2026 Juan Pablo Sánchez. Textos redactados a mano sin inteligencia artificial.</p>
+          <div class="gbm-footer__links">
+            <a href="index.html">Ensayos</a>
+            <a href="sobre-mi.html">Sobre mí</a>
+            <a href="llms.txt">llms.txt</a>
+            <a href="rss.xml">RSS</a>
+            <a href="sitemap.xml">Sitemap</a>
+            <a href="https://github.com/QuantRabbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
       </div>
     </footer>
   </div>

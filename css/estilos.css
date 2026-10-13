@@ -1,50 +1,67 @@
 /* ==========================================================================
-   Sistema de Diseno Editorial: GBM Media "The Idea"
-   Inspirado en la direccion visual de gbm.com/media/the-idea/
+   Sistema de Diseno Editorial: GBM Media "The Idea" / WSJ
+   Inspirado en la estetica de https://gbm.com/media/the-idea/
    
    Principios:
-   - Minimalismo editorial fintech de alto impacto y pureza sans-serif
-   - Fondo blanco nitido (#ffffff) y tinta de alta definicion (#1d1d20)
-   - Kicker de seccion en versalitas audaces (txt-19-700 uppercase)
-   - Titulares contundentes en palo seco con peso 700 (ttl-41-700)
-   - Bajada editorial destacada (txt-21) para sintesis ejecutiva previa
-   - Barra de metadatos con fecha en mayusculas tecnicas y tiempo de lectura
-   - Bloque "En corto" integrado con contorno fino de tarjeta estructurada
-   - Modo oscuro nativo de terminal digital (#111114 con superficies en #18181c)
-   - Cero fuentes externas o dependencias (sistema optimizado para carga instantanea)
-   - Cero guiones largos (em dashes)
+   - Diseno editorial de alto impacto para directores generales y fundadores.
+   - Modo claro por defecto: fondo blanco puro (#ffffff), tinta profunda (#121316),
+     superficies de tarjetas en pizarra suave (#f7f7fa) y acento cobalto (#424ee0).
+   - Modo oscuro tipo terminal de mercados (#0c0d12) con tarjetas en relieve (#141622)
+     y bordes definidos (#242636), nunca fondos negros planos sin contraste.
+   - Selector manual de tema (Claro / Oscuro / Auto) con persistencia en localStorage.
+   - Tipografia de sistema sans-serif optimizada para lectura de alta resolucion.
+   - Estructura GBM: Kicker uppercase (txt-19-700), Titular audaz (ttl-41-700),
+     Bajada explicativa (txt-21), Metadatos tecnicos (txt-13-700) y Pill tags.
+   - Tarjeta destacada (archive__featured) y cuadricula de tarjetas (archive__grid).
+   - Bloque "En corto" para lectura ejecutiva y citacion en motores de IA (GEO).
+   - Sin dependencias externas ni CDNs. Cero guiones largos (em dashes).
    ========================================================================== */
 
 :root {
-  /* Lienzo y superficies GBM Media */
+  /* Lienzo y superficies de modo claro (GBM Media signature) */
   --canvas: #ffffff;
-  --surface-card: #f7f7f9;
-  --surface-muted: #f0f0f4;
-  --surface-elevated: #ffffff;
+  --surface-header: #ffffff;
+  --surface-card: #f8f9fb;
+  --surface-card-hover: #ffffff;
+  --surface-muted: #f0f2f6;
+  --surface-callout: #f5f6fa;
+  --surface-pill: #121316;
+  --surface-pill-text: #ffffff;
   
   /* Textos de alta densidad */
-  --ink: #1d1d20;
-  --body: #262629;
-  --body-strong: #111113;
-  --muted: #5e5e68;
-  --muted-soft: #858592;
+  --ink: #121316;
+  --body: #25272e;
+  --body-strong: #0d0e11;
+  --muted: #5e6272;
+  --muted-soft: #858999;
   
-  /* Acentos de identidad GBM */
-  --accent: #1d1d20;             /* Primario carbon GBM */
-  --accent-interactive: #424ee0; /* Azul cobalto GBM Media */
-  --accent-interactive-hover: #2f3bc4;
-  --accent-pill: #000000;
-  --hairline: #e8e8ed;          /* Filete gris fino de 1px */
-  --hairline-dark: #1d1d20;
+  /* Acentos de identidad GBM Media */
+  --accent-interactive: #424ee0;       /* Azul cobalto GBM */
+  --accent-interactive-hover: #2e3bc8;
+  --accent-pill-border: #121316;
   
-  /* Tipografia: 100% palo seco de alta precision */
+  /* Separadores y bordes de precision (1px) */
+  --hairline: #e6e8ed;
+  --hairline-strong: #121316;
+  --border-focus: #424ee0;
+  
+  /* Sombras y profundidad */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 10px 28px rgba(66, 78, 224, 0.09);
+
+  /* Tipografia palo seco de precision */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  /* Bordes de precision */
+  /* Bordes */
   --radio-sm: 4px;
-  --radio-md: 6px;
+  --radio-md: 8px;
   --radio-pill: 9999px;
+  
+  /* Ancho de lectura optimo (65 a 75 caracteres) */
+  --ancho-columna: 72ch;
+  --ancho-contenedor: 1040px;
 
   /* Alias de compatibilidad */
   --bg: var(--canvas);
@@ -54,25 +71,65 @@
   --callout-bg: var(--surface-card);
 }
 
+/* Modo oscuro explictamente forzado por el usuario */
+[data-tema="oscuro"] {
+  --canvas: #0c0d12;
+  --surface-header: #0c0d12;
+  --surface-card: #141620;
+  --surface-card-hover: #191c28;
+  --surface-muted: #1c1e2b;
+  --surface-callout: #161824;
+  --surface-pill: #ffffff;
+  --surface-pill-text: #0c0d12;
+  
+  --ink: #ffffff;
+  --body: #d5d8e4;
+  --body-strong: #ffffff;
+  --muted: #8c91a4;
+  --muted-soft: #63677a;
+  
+  --accent-interactive: #6974f7;
+  --accent-interactive-hover: #8892fa;
+  --accent-pill-border: #ffffff;
+  
+  --hairline: #242636;
+  --hairline-strong: #ffffff;
+  --border-focus: #6974f7;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 10px 28px rgba(105, 116, 247, 0.14);
+}
+
+/* Modo oscuro automatico si el sistema lo prefiere y el usuario no eligio 'claro' */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --canvas: #111114;
-    --surface-card: #19191d;
-    --surface-muted: #222228;
-    --surface-elevated: #1f1f25;
+  :root:not([data-tema="claro"]) {
+    --canvas: #0c0d12;
+    --surface-header: #0c0d12;
+    --surface-card: #141620;
+    --surface-card-hover: #191c28;
+    --surface-muted: #1c1e2b;
+    --surface-callout: #161824;
+    --surface-pill: #ffffff;
+    --surface-pill-text: #0c0d12;
     
-    --ink: #fcfcfd;
-    --body: #e0e0e6;
+    --ink: #ffffff;
+    --body: #d5d8e4;
     --body-strong: #ffffff;
-    --muted: #9999a6;
-    --muted-soft: #6e6e7c;
+    --muted: #8c91a4;
+    --muted-soft: #63677a;
     
-    --accent: #fcfcfd;
     --accent-interactive: #6974f7;
     --accent-interactive-hover: #8892fa;
-    --accent-pill: #ffffff;
-    --hairline: #27272f;
-    --hairline-dark: #fcfcfd;
+    --accent-pill-border: #ffffff;
+    
+    --hairline: #242636;
+    --hairline-strong: #ffffff;
+    --border-focus: #6974f7;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-card-hover: 0 10px 28px rgba(105, 116, 247, 0.14);
   }
 }
 
@@ -81,242 +138,664 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: 17px;
   background-color: var(--canvas);
   color: var(--body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
-  line-height: 1.7;
+  line-height: 1.68;
   background-color: var(--canvas);
   color: var(--body);
 }
 
-/* Columna central de lectura (65 a 75 caracteres) */
-.contenedor {
-  max-width: 68ch;
-  margin: 0 auto;
-  padding: 2.5rem 1.5rem 5rem 1.5rem;
+/* Envolvente principal */
+.sitio-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Cabecera minimalista GBM Media */
-.site-header {
+/* Contenedor responsivo centrado */
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-contenedor);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Columna de lectura para articulos individuales */
+.columna-lectura {
+  max-width: var(--ancho-columna);
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Cabecera Editorial estilo GBM Media (Masthead + Subnav)
+   ========================================================================== */
+
+.gbm-header {
+  background-color: var(--surface-header);
   border-bottom: 1px solid var(--hairline);
-  padding: 1.25rem 0 1.15rem 0;
-  margin-bottom: 2.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.gbm-header__top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--hairline);
 }
 
-.site-title {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  text-decoration: none;
-  transition: opacity 0.15s ease;
-}
-
-.site-title:hover {
-  opacity: 0.75;
-  text-decoration: none;
-}
-
-.site-nav {
+/* Monograma y marca editorial */
+.marca-editorial {
   display: flex;
-  gap: 1.35rem;
   align-items: center;
-}
-
-.site-nav a {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--muted);
+  gap: 0.85rem;
   text-decoration: none;
-  transition: color 0.15s ease;
+  color: inherit;
 }
 
-.site-nav a:hover {
-  color: var(--ink);
-}
-
-.site-nav a.activo {
-  color: var(--ink);
-  font-weight: 700;
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 2px;
-}
-
-/* Kicker de seccion (The Idea tag) */
-.seccion-kicker {
+.marca-monograma {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--ink);
+  color: var(--canvas);
   font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 750;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--accent-interactive);
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-/* Jerarquia tipografica */
-h1, h2, h3, h4 {
-  font-family: var(--font-sans);
-  color: var(--ink);
-  letter-spacing: -0.025em;
-  font-weight: 700;
-}
-
-h1 {
-  font-size: 2.4rem;
-  line-height: 1.15;
-  margin-top: 0;
-  margin-bottom: 0.85rem;
-}
-
-/* Bajada editorial estilo The Idea (txt-21) */
-.subtitulo-articulo {
-  font-family: var(--font-sans);
-  font-size: 1.2rem;
-  line-height: 1.5;
-  color: var(--muted);
-  margin-top: 0;
-  margin-bottom: 1.65rem;
-  font-weight: 400;
-}
-
-h2 {
-  font-size: 1.45rem;
-  line-height: 1.3;
-  margin-top: 2.75rem;
-  margin-bottom: 0.85rem;
+  font-weight: 800;
+  font-size: 0.95rem;
   letter-spacing: -0.02em;
+  border-radius: var(--radio-sm);
+  transition: transform 0.15s ease;
 }
 
-h3 {
-  font-size: 1.15rem;
-  line-height: 1.35;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+.marca-editorial:hover .marca-monograma {
+  transform: scale(1.04);
 }
 
-p {
-  margin-top: 0;
-  margin-bottom: 1.35rem;
+.marca-info {
+  display: flex;
+  flex-direction: column;
 }
 
-strong, b {
-  color: var(--body-strong);
-  font-weight: 700;
-}
-
-/* Enlaces */
-a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: var(--hairline);
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  transition: color 0.15s ease, text-decoration-color 0.15s ease;
-}
-
-a:hover {
-  color: var(--accent-interactive);
-  text-decoration-color: var(--accent-interactive);
-}
-
-/* Barra de metadatos estilo GBM Media */
-.articulo-meta {
+.marca-nombre {
   font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.marca-sub {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  line-height: 1.25;
+  margin-top: 2px;
+}
+
+/* Extremo derecho de la cabecera */
+.gbm-header__acciones {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.header-fecha-bloque {
+  text-align: right;
+  display: none;
+}
+
+@media (min-width: 680px) {
+  .header-fecha-bloque {
+    display: block;
+  }
+}
+
+.header-fecha {
   font-size: 0.775rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.header-subfecha {
+  font-size: 0.7rem;
   color: var(--muted);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Boton conmutador de tema */
+.btn-tema {
+  display: inline-flex;
   align-items: center;
-  padding-bottom: 1.5rem;
-  margin-bottom: 2.25rem;
-  border-bottom: 1px solid var(--hairline);
-}
-
-.articulo-meta a {
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-pill);
   color: var(--muted);
-  text-decoration: underline;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.articulo-meta a:hover {
+.btn-tema:hover {
+  background-color: var(--surface-muted);
+  color: var(--ink);
+  border-color: var(--hairline-strong);
+}
+
+/* Submenu horizontal estilo GBM The Idea */
+.gbm-subnav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.65rem 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.gbm-subnav::-webkit-scrollbar {
+  display: none;
+}
+
+.gbm-subnav a {
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding-bottom: 2px;
+  transition: color 0.15s ease;
+}
+
+.gbm-subnav a:hover {
+  color: var(--ink);
+}
+
+.gbm-subnav a.activo {
+  color: var(--ink);
+  font-weight: 800;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* ==========================================================================
+   Seccion Hero / Intro (archive__intro en GBM)
+   ========================================================================== */
+
+.archive-intro {
+  padding: 3rem 0 2rem 0;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 2.75rem;
+}
+
+.archive-intro__kicker {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--accent-interactive);
+  margin-bottom: 0.65rem;
 }
 
-/* Etiquetas en formato pill de GBM */
+.archive-intro__titulo {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.archive-intro__bajada {
+  font-size: 1.15rem;
+  line-height: 1.62;
+  color: var(--muted);
+  max-width: 65ch;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Componentes de etiquetas y Pills estilo GBM
+   ========================================================================== */
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.75rem;
+  border-radius: var(--radio-pill);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.tag-pill--solid {
+  background-color: var(--surface-pill);
+  color: var(--surface-pill-text);
+  border: 1px solid var(--surface-pill);
+}
+
+.tag-pill--outline {
+  background-color: transparent;
+  color: var(--ink);
+  border: 1px solid var(--hairline-strong);
+}
+
+.seccion-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.775rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent-interactive);
+  display: inline-block;
+}
+
 .etiquetas {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.35rem;
+  gap: 0.45rem;
+  margin-top: 1rem;
 }
 
 .etiqueta {
   font-family: var(--font-sans);
   font-size: 0.725rem;
   font-weight: 600;
-  padding: 0.2rem 0.65rem;
+  padding: 0.25rem 0.75rem;
   background-color: var(--surface-muted);
   color: var(--muted);
   border: 1px solid var(--hairline);
   border-radius: var(--radio-pill);
   text-decoration: none;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .etiqueta:hover {
   background-color: var(--hairline);
   color: var(--ink);
-  text-decoration: none;
+  border-color: var(--muted-soft);
 }
 
-/* Bloque "En corto" para optimizacion GEO */
-.en-corto {
-  margin: 2.5rem 0;
-  padding: 1.4rem 1.6rem;
+/* ==========================================================================
+   Tarjeta Destacada (archive__featured en GBM)
+   ========================================================================== */
+
+.seccion-destacada {
+  margin-bottom: 3.5rem;
+}
+
+.card-destacada {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   background-color: var(--surface-card);
   border: 1px solid var(--hairline);
-  border-left: 3.5px solid var(--ink);
-  border-radius: var(--radio-sm);
+  border-radius: var(--radio-md);
+  padding: 2.25rem 2rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  position: relative;
 }
 
-.en-corto h2 {
+.card-destacada:hover {
+  background-color: var(--surface-card-hover);
+  border-color: var(--accent-interactive);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.card-destacada__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+
+.card-destacada__titulo {
   font-family: var(--font-sans);
-  font-size: 0.775rem;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0 0 1rem 0;
+  transition: color 0.15s ease;
+}
+
+.card-destacada:hover .card-destacada__titulo {
+  color: var(--accent-interactive);
+}
+
+.card-destacada__resumen {
+  font-size: 1.05rem;
+  line-height: 1.62;
+  color: var(--body);
+  margin: 0 0 1.5rem 0;
+  max-width: 70ch;
+}
+
+/* ==========================================================================
+   Barra de Metadatos estilo GBM Media
+   ========================================================================== */
+
+.meta-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+
+.meta-fecha {
+  color: var(--muted);
+}
+
+.meta-tiempo {
+  color: var(--muted);
+}
+
+.meta-autor {
+  color: var(--muted);
+}
+
+.meta-separador {
+  color: var(--muted-soft);
+  font-weight: 400;
+}
+
+.meta-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  background-color: var(--surface-muted);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-sm);
+  font-size: 0.675rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Cuadricula de Ensayos (archive__grid en GBM)
+   ========================================================================== */
+
+.seccion-grid {
+  margin-bottom: 4rem;
+}
+
+.seccion-grid__titulo-bloque {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 1.75rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.grid-articulos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-articulos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card-articulo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-md);
+  padding: 1.75rem 1.6rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-articulo:hover {
+  background-color: var(--surface-card-hover);
+  border-color: var(--accent-interactive);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.card-articulo__top {
+  margin-bottom: 1.25rem;
+}
+
+.card-articulo__kicker {
+  margin-bottom: 0.5rem;
+}
+
+.card-articulo__titulo {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 0.75rem 0;
+  transition: color 0.15s ease;
+}
+
+.card-articulo:hover .card-articulo__titulo {
+  color: var(--accent-interactive);
+}
+
+.card-articulo__resumen {
+  font-size: 0.95rem;
+  line-height: 1.58;
+  color: var(--body);
+  margin: 0;
+}
+
+.card-articulo__bottom {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* ==========================================================================
+   Vista de Articulo Individual (single-template en GBM)
+   ========================================================================== */
+
+.single-hero {
+  padding: 2.25rem 0 2rem 0;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 2.5rem;
+}
+
+.btn-retorno {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.35rem 0.85rem;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-pill);
+  margin-bottom: 1.75rem;
+  transition: all 0.15s ease;
+}
+
+.btn-retorno:hover {
+  color: var(--ink);
+  border-color: var(--hairline-strong);
+  background-color: var(--surface-muted);
+}
+
+.single-hero__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.single-hero__titulo {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 1rem 0;
+}
+
+.single-hero__bajada {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 1.75rem 0;
+}
+
+.single-hero__meta {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* Barra para compartir */
+.single-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2.5rem 0;
+  padding: 0.85rem 1.25rem;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-md);
+}
+
+.single-share__label {
+  font-size: 0.75rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-right: 0.4rem;
+}
+
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: var(--ink);
+  background-color: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-pill);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-share:hover {
+  color: var(--accent-interactive);
+  border-color: var(--accent-interactive);
+}
+
+/* ==========================================================================
+   Bloque "En corto" para optimizacion GEO (Motores de IA y sintesis ejecutiva)
+   ========================================================================== */
+
+.en-corto {
+  margin: 2.5rem 0;
+  padding: 1.75rem 1.85rem;
+  background-color: var(--surface-callout);
+  border: 1px solid var(--hairline);
+  border-left: 4px solid var(--accent-interactive);
+  border-radius: var(--radio-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.en-corto__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.en-corto__kicker {
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-top: 0;
-  margin-bottom: 0.85rem;
-  color: var(--ink);
-  font-weight: 800;
+  color: var(--accent-interactive);
+}
+
+.en-corto__intro {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 1rem 0;
+  line-height: 1.45;
 }
 
 .en-corto ul {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
   margin: 0;
-  padding-left: 1.25rem;
+  padding-left: 1.35rem;
+  list-style-type: square;
 }
 
 .en-corto li {
-  margin-bottom: 0.65rem;
-  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  font-size: 0.985rem;
+  line-height: 1.62;
   color: var(--body);
 }
 
@@ -324,290 +803,301 @@ a:hover {
   margin-bottom: 0;
 }
 
-/* Listas en cuerpo */
-article ul, article ol {
-  margin-top: 0;
-  margin-bottom: 1.35rem;
+/* ==========================================================================
+   Cuerpo del Articulo y Elementos Editoriales
+   ========================================================================== */
+
+.cuerpo-articulo {
+  font-size: 1.05rem;
+  line-height: 1.72;
+  color: var(--body);
+}
+
+.cuerpo-articulo h2 {
+  font-family: var(--font-sans);
+  font-size: 1.55rem;
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 2.75rem 0 1rem 0;
+  padding-top: 1rem;
+}
+
+.cuerpo-articulo h3 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 2rem 0 0.75rem 0;
+}
+
+.cuerpo-articulo p {
+  margin: 0 0 1.45rem 0;
+}
+
+.cuerpo-articulo strong, 
+.cuerpo-articulo b {
+  color: var(--body-strong);
+  font-weight: 700;
+}
+
+.cuerpo-articulo a {
+  color: var(--accent-interactive);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.cuerpo-articulo a:hover {
+  color: var(--accent-interactive-hover);
+}
+
+.cuerpo-articulo ul, 
+.cuerpo-articulo ol {
+  margin: 0 0 1.5rem 0;
   padding-left: 1.5rem;
 }
 
-article li {
-  margin-bottom: 0.45rem;
+.cuerpo-articulo li {
+  margin-bottom: 0.5rem;
 }
 
-/* Citas */
+/* Citas editoriales estilo GBM */
 blockquote {
-  margin: 2.25rem 0;
-  padding: 0.85rem 0 0.85rem 1.4rem;
-  border-left: 3px solid var(--ink);
+  margin: 2.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--accent-interactive);
+  background-color: var(--surface-card);
+  border-radius: 0 var(--radio-md) var(--radio-md) 0;
   color: var(--ink);
   font-size: 1.15rem;
-  line-height: 1.55;
-  font-style: italic;
+  line-height: 1.58;
 }
 
 blockquote p {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 blockquote cite {
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.775rem;
   font-style: normal;
-  margin-top: 0.6rem;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-/* Codigo */
-code {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  padding: 0.15em 0.4em;
-  background-color: var(--surface-muted);
-  border-radius: var(--radio-sm);
-  color: var(--ink);
-}
-
-/* Lista de articulos en portada estilo The Idea */
-.lista-articulos {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.item-articulo {
-  padding: 2.25rem 0;
-  border-bottom: 1px solid var(--hairline);
-  transition: opacity 0.15s ease;
-}
-
-.item-articulo:first-child {
-  padding-top: 0.5rem;
-}
-
-.item-articulo:last-child {
-  border-bottom: none;
-}
-
-.item-articulo-fecha {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--muted);
-  margin-bottom: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+/* Cajas de borrador (para andamiaje sin escribir el ensayo) */
+.borrador-box {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.4rem;
+  background-color: var(--surface-muted);
+  border: 1px dashed var(--muted-soft);
+  border-radius: var(--radio-sm);
+  font-size: 0.925rem;
+  color: var(--muted);
+}
+
+.borrador-box strong {
   display: block;
-  font-weight: 700;
-}
-
-.item-articulo-titulo {
-  font-size: 1.45rem;
-  line-height: 1.25;
-  margin-top: 0;
-  margin-bottom: 0.55rem;
-  font-weight: 700;
-}
-
-.item-articulo-titulo a {
-  text-decoration: none;
   color: var(--ink);
-  transition: color 0.15s ease;
+  margin-bottom: 0.35rem;
 }
 
-.item-articulo-titulo a:hover {
-  color: var(--accent-interactive);
-}
+/* ==========================================================================
+   Seccion FAQ para GEO (FAQPage)
+   ========================================================================== */
 
-.item-articulo-resumen {
-  color: var(--muted);
-  margin-bottom: 0.85rem;
-  line-height: 1.62;
-  font-size: 1rem;
-}
-
-/* Seccion FAQ para GEO */
 .faq-seccion {
   margin-top: 3.5rem;
-  padding-top: 1.75rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--hairline);
 }
 
-.faq-seccion h2 {
-  margin-top: 0;
-  margin-bottom: 1.25rem;
-  font-size: 1.25rem;
+.faq-seccion__titulo {
+  font-family: var(--font-sans);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 1.5rem 0;
 }
 
 .faq-item {
   margin-bottom: 1rem;
-  padding: 1.2rem 1.4rem;
+  padding: 1.35rem 1.5rem;
   background-color: var(--surface-card);
   border: 1px solid var(--hairline);
-  border-radius: var(--radio-sm);
+  border-radius: var(--radio-md);
 }
 
 .faq-pregunta {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-top: 0;
-  margin-bottom: 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 750;
   color: var(--ink);
+  margin: 0 0 0.5rem 0;
 }
 
 .faq-respuesta {
-  margin: 0;
-  color: var(--body);
-  line-height: 1.62;
   font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--body);
+  margin: 0;
 }
 
-/* Fuentes primarias */
+/* ==========================================================================
+   Fuentes primarias y citas
+   ========================================================================== */
+
 .fuentes-seccion {
-  margin-top: 3.25rem;
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--hairline);
+  margin-top: 2.75rem;
+  padding: 1.5rem 1.75rem;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-md);
 }
 
 .fuentes-seccion h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-}
-
-.fuentes-caja {
-  padding: 1.2rem 1.4rem;
-  background-color: var(--surface-card);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radio-sm);
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0 0 0.85rem 0;
+  color: var(--ink);
 }
 
 .fuentes-lista {
-  padding-left: 1.25rem;
   margin: 0;
+  padding-left: 1.25rem;
   font-size: 0.9rem;
-  color: var(--body);
+  color: var(--muted);
 }
 
 .fuentes-lista li {
   margin-bottom: 0.5rem;
 }
 
-.fuentes-lista li:last-child {
-  margin-bottom: 0;
-}
-
-/* Caja de autor */
-.autor-box {
-  margin-top: 3.75rem;
-  padding: 1.6rem 1.75rem;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radio-md);
-  background-color: var(--surface-card);
-}
-
-.autor-box h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-  color: var(--ink);
-}
-
-.autor-box p {
-  margin-bottom: 0.65rem;
-  font-size: 0.95rem;
-  color: var(--body);
-  line-height: 1.65;
-}
-
-.autor-box p:last-child {
-  margin-bottom: 0;
-}
-
-.autor-box a {
-  font-weight: 600;
+.fuentes-lista a {
   color: var(--accent-interactive);
 }
 
-/* Caja de borrador */
-.borrador-box {
-  margin: 1.75rem 0;
-  padding: 1.15rem 1.35rem;
-  border: 1px dashed var(--muted);
-  background-color: var(--surface-muted);
-  border-radius: var(--radio-sm);
-  font-size: 0.925rem;
-  color: var(--body);
-}
+/* ==========================================================================
+   Tarjeta de Autor al pie
+   ========================================================================== */
 
-.borrador-box strong {
-  color: var(--ink);
-  display: block;
-  margin-bottom: 0.35rem;
-  font-weight: 700;
-}
-
-/* Pie de pagina */
-.site-footer {
-  margin-top: 5rem;
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--hairline);
-  font-size: 0.8rem;
-  color: var(--muted);
+.autor-card {
+  margin-top: 3.5rem;
+  padding: 2rem;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radio-md);
   display: flex;
-  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.autor-card__monograma {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background-color: var(--ink);
+  color: var(--canvas);
+  font-weight: 800;
+  font-size: 1.3rem;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: var(--radio-sm);
+}
+
+.autor-card__body h3 {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem 0;
+  color: var(--ink);
+}
+
+.autor-card__cargo {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-interactive);
+  margin: 0 0 0.75rem 0;
+}
+
+.autor-card__bio {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--body);
+  margin: 0 0 0.85rem 0;
+}
+
+.autor-card__enlace {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-interactive);
+  text-decoration: none;
+}
+
+.autor-card__enlace:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Pie de pagina minimalista estilo GBM Media
+   ========================================================================== */
+
+.gbm-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--hairline);
+  background-color: var(--canvas);
+  padding: 2.5rem 0;
+}
+
+.gbm-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  color: var(--muted);
+}
+
+@media (min-width: 680px) {
+  .gbm-footer__inner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.gbm-footer__copy {
+  margin: 0;
+}
+
+.gbm-footer__links {
+  display: flex;
   flex-wrap: wrap;
   gap: 1.25rem;
 }
 
-.footer-links {
-  display: flex;
-  gap: 1.25rem;
-}
-
-.footer-links a {
+.gbm-footer__links a {
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.footer-links a:hover {
-  color: var(--ink);
-  text-decoration: underline;
-}
-
-/* Enlace volver */
-.enlace-volver {
-  display: inline-block;
-  margin-bottom: 2rem;
-  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--muted);
-  text-decoration: none;
   transition: color 0.15s ease;
 }
 
-.enlace-volver:hover {
+.gbm-footer__links a:hover {
   color: var(--ink);
-  text-decoration: underline;
-}
-
-@media (max-width: 600px) {
-  html {
-    font-size: 17px;
-  }
-  .contenedor {
-    padding: 1.75rem 1.15rem 3.5rem 1.15rem;
-  }
-  h1 {
-    font-size: 2rem;
-  }
-  .subtitulo-articulo {
-    font-size: 1.1rem;
-  }
-  h2 {
-    font-size: 1.35rem;
-  }
 }
