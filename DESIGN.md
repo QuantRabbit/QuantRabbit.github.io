@@ -1,98 +1,77 @@
-# Sistema de Diseno Editorial Clasico Financiero (WSJ / Financial Times)
+# Sistema de Diseno Editorial: GBM / WSJ
 
-Sistema de diseno editorial para el canal personal de ensayos de Juan Pablo Sanchez sobre economia, politica, inversion y finanzas para fundadores y directores generales.
+Sistema de diseno editorial para el canal personal de ensayos de Juan Pablo Sanchez. Fusiona la autoridad periodistica clasica de **The Wall Street Journal (WSJ)** con la precision visual y minimalismo digital de **GBM (Grupo Bursatil Mexicano)**.
 
 ---
 
 ## 1. Filosofia Visual
 
-- **Prensa financiera de alto contraste:** Fondo blanco puro (`#ffffff`) con tipografia oscura en tinta de obsidiana (`#0f172a` y `#1e293b`) que transmite rigor analitico y sobriedad institucional.
-- **Acento azul marino financiero:** Tono sobrio (`#0f2942`) para filetes maestros, cabeceras del bloque "En corto" y citas, sustituyendo cualquier estetica de calidez artificial por gravedad corporativa.
-- **Voz tipografica de prensa:**
-  - Titulares firmes y texto de lectura en serifa editorial periodistica (`Georgia`, `Cambria`, `Times New Roman`, `serif`).
-  - Navegacion, metadatos, etiquetas y versalitas tecnicas en palo seco estructurado (`-apple-system`, `Segoe UI`, `Roboto`, `sans-serif`).
-  - Codigo y series numericas en monoespacio del sistema (`ui-monospace`, `SF Mono`, `Menlo`, `monospace`).
-- **Ancho de lectura estricto:** Una sola columna de 65 a 75 caracteres (`max-width: 68ch`).
-- **Cero dependencias:** 100% libre de frameworks, CDNs y tipografias externas. Carga instantanea y compatible con apertura local por doble clic.
-- **Modo noche sobrio:** Fondo pizarra noche (`#090d16`) con tarjetas en grafito (`#111827`) y azul acero (`#38bdf8`) para preservar el contraste en ambientes oscuros.
+- **Contraste bursatil absoluto:** Fondo blanco nitido (`#ffffff`) con tipografia en negro profundo (`#0a0a0a` y `#171717`). Sin tonos crema, marfil ni calidos artificiales.
+- **Cabecera maestra estilo primera plana:** Doble filete maestro (solido superior de 3.5px y fino inferior de 1px) caracteristico de la prensa financiera internacional.
+- **Acentos institucionales:**
+  - Azul marino corporativo (`#002b49`): Color institucional presente en la banca de inversion y fintech.
+  - Indicador verde bursatil (`#059669`): Marcador discreto de mercado en el bloque "En corto" para senalizar sintesis y rendimiento.
+- **Voz tipografica hibrida de prensa y fintech:**
+  - Titulares y lectura en serifa editorial firme (`Georgia`, `Cambria`, `Times New Roman`, `serif`) con peso 700 en titulares.
+  - Navegacion, metadatos, etiquetas y fichas tecnicas en palo seco estructurado (`-apple-system`, `Segoe UI`, `Roboto`, `sans-serif`) con versalitas compactas.
+- **Precision geometrica en bordes:** Radios contenidos (`2px` a `4px`) que proyectan estructura analitica y eliminan redondeos organicos.
+- **Modo oscuro de terminal bursatil:** Fondo noche profunda (`#0a0e17`) con tarjetas en azul pizarra (`#111827`) e indicadores cian/esmeralda.
 
 ---
 
 ## 2. Tokens de Color
 
-### Modo Claro (Prensa de Alto Contraste)
+### Modo Claro
 
 | Token | Valor Hex | Uso |
 |---|---|---|
-| `--canvas` | `#ffffff` | Fondo principal blanco limpio |
-| `--surface-card` | `#f8fafc` | Fondo de bloques destacados, "En corto", FAQ y autor |
-| `--surface-muted` | `#f1f5f9` | Fondo de etiquetas y elementos secundarios |
-| `--ink` | `#0f172a` | Titulares y texto de maxima jerarquia |
-| `--body` | `#1e293b` | Texto corrido de lectura de alto contraste |
-| `--body-strong` | `#0f172a` | Texto en negrita |
-| `--muted` | `#475569` | Metadatos, fechas y navegacion |
-| `--muted-soft` | `#64748b` | Leyendas secundarias |
-| `--primary` | `#0f2942` | Azul marino financiero clasico |
-| `--primary-hover` | `#1e40af` | Azul de interaccion al pasar el cursor |
-| `--hairline` | `#e2e8f0` | Filetes de 1px entre secciones |
-| `--hairline-dark` | `#cbd5e1` | Subrayados sutiles de enlaces |
+| `--canvas` | `#ffffff` | Fondo principal blanco puro |
+| `--surface-card` | `#f9fafb` | Fondo de bloques destacados y tarjetas |
+| `--surface-muted` | `#f3f4f6` | Fondo de etiquetas e indicadores |
+| `--ink` | `#0a0a0a` | Titulares y elementos de maxima jerarquia |
+| `--body` | `#171717` | Texto de lectura de alto contraste |
+| `--muted` | `#525252` | Metadatos, fechas y navegacion |
+| `--primary` | `#002b49` | Azul marino corporativo GBM |
+| `--accent-market` | `#059669` | Verde bursatil sutil |
+| `--hairline` | `#e5e7eb` | Filete de 1px entre secciones |
+| `--hairline-dark` | `#0a0a0a` | Filete negro de cabecera y citas |
 
-### Modo Oscuro (Pizarra Noche)
+### Modo Oscuro
 
 | Token | Valor Hex | Uso |
 |---|---|---|
-| `--canvas` | `#090d16` | Fondo pizarra noche |
-| `--surface-card` | `#111827` | Superficie de tarjetas y bloques |
+| `--canvas` | `#0a0e17` | Fondo noche de terminal financiera |
+| `--surface-card` | `#111827` | Superficie de tarjetas y fichas |
 | `--surface-muted` | `#1e293b` | Fondo de etiquetas |
-| `--ink` | `#f8fafc` | Titulares blancos nitidos |
-| `--body` | `#e2e8f0` | Texto corrido de lectura |
-| `--body-strong` | `#ffffff` | Texto con enfasis |
-| `--muted` | `#94a3b8` | Metadatos y fechas |
-| `--primary` | `#38bdf8` | Azul acero para contraste nocturno |
-| `--hairline` | `#1e293b` | Filetes en modo oscuro |
+| `--ink` | `#ffffff` | Titulares en blanco puro |
+| `--body` | `#e5e7eb` | Texto corrido de alta legibilidad |
+| `--muted` | `#9ca3af` | Metadatos y fechas |
+| `--primary` | `#38bdf8` | Azul cielo para acentos oscuros |
+| `--accent-market` | `#34d399` | Verde esmeralda para indicadores |
+| `--hairline` | `#1f293d` | Bordes en modo oscuro |
 
 ---
 
-## 3. Escala Tipografica y Jerarquia
+## 3. Componentes Destacados
 
-| Elemento | Pila Tipografica | Tamano | Peso | Line Height | Tracking |
-|---|---|---|---|---|---|
-| **Cabecera de marca** | Serifa periodistica | 1.35rem | 700 (negrita) | 1.00 | -0.015em |
-| **h1 (Titular)** | Serifa periodistica | 2.25rem | 700 (negrita) | 1.20 | -0.015em |
-| **h2 (Secciones)** | Serifa periodistica | 1.45rem | 700 (negrita) | 1.30 | -0.015em |
-| **h3 (Subtitulos)** | Palo seco estructurado | 1.10rem | 650 (semibold) | 1.40 | 0 |
-| **Texto corrido (p)** | Serifa periodistica | 1.125rem | 400 (regular) | 1.75 | 0 |
-| **En corto / Puntos** | Palo seco estructurado | 0.95rem | 400 | 1.60 | 0 |
-| **Etiquetas** | Palo seco versalitas | 0.725rem | 600 | 1.00 | +0.05em |
-| **Metadatos y Fechas** | Palo seco estructurado | 0.85rem | 600 | 1.40 | +0.05em |
-| **Citas (blockquote)** | Serifa periodistica | 1.20rem | 400 itálica | 1.60 | 0 |
+### A. Cabecera Maestra (Broadsheet WSJ)
+Filete superior de `3.5px solid var(--hairline-dark)` y filete inferior de `1px solid var(--hairline-dark)`. Tipografia titular en serifa con navegacion en versalitas limpias (`letter-spacing: 0.06em`).
 
----
-
-## 4. Componentes Clave
-
-### A. Cabecera Maestra
-- Filete inferior firme de `2px solid var(--ink)` que evoca la primera plana de un periodico financiero.
-- Titulo en serifa de autoridad y enlaces de navegacion en versalitas limpias con espaciado equilibrado.
-
-### B. Bloque "En corto" (Optimizacion GEO)
-- Tarjeta rectangular con fondo pizarra suave (`#f8fafc`), borde perimetral de `1px` y filete superior de `3px solid var(--primary)`.
-- Titulo "EN CORTO" en versalitas azules (`#0f2942`) con tracking abierto.
-- Puntos sinteticos autocontenidos listos para extraccion por lectores y motores generativos.
+### B. Bloque "En corto" (Key Takeaways)
+Fondo `#f9fafb`, contorno de `1px`, filete superior en azul marino (`#002b49`) y encabezado con punto verde bursatil (`#059669`). Frases autosuficientes con unidad, ano y fuente institucional explícita.
 
 ### C. Bloques de Cita (`blockquote`)
-- Filete lateral marino de `3px solid var(--primary)` sobre fondo limpio.
-- Serifa cursiva de 1.2rem con atribucion en versalitas sobrias.
+Filete lateral de `3px solid var(--hairline-dark)` con texto en serifa cursiva de 1.2rem y cita en versalitas tecnicas.
 
 ### D. Preguntas Frecuentes (FAQPage)
-- Tarjetas modulares de contorno fino (`1px solid var(--hairline)`) con pregunta en palo seco semibold y respuesta en serifa legible.
+Tarjetas modulares de contorno fino con pregunta en palo seco semibold y respuesta en serifa legible.
 
 ### E. Modulo de Autor
-- Tarjeta de remate al pie con filete superior marino de `2px solid var(--primary)` y enlace institucional a `sobre-mi.html`.
+Tarjeta de pie con filete superior marino de `2px` y enlace en palo seco hacia `sobre-mi.html`.
 
 ---
 
-## 5. Reglas Editoriales Irrenunciables
+## 4. Reglas Editoriales Irrenunciables
 
 1. **Sin em dashes:** Queda estrictamente prohibido el uso del caracter guion largo (em dash). Se utilizan dos puntos, parentesis o guiones cortos comunes (-) cuando sea necesario.
 2. **Redaccion directa por el autor:** Todos los ensayos los redacta Juan Pablo Sanchez a mano sin intermediacion de inteligencia artificial.

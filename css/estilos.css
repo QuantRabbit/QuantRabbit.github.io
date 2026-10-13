@@ -1,47 +1,51 @@
 /* ==========================================================================
-   Sistema de Diseno Editorial Clasico Financiero (WSJ / Financial Times)
-   Diseno sobrio, fondo blanco puro, alto contraste y acento en azul marino profundo
+   Sistema de Diseno Editorial: GBM / WSJ
+   Fusion de prensa financiera clasica (The Wall Street Journal)
+   con el minimalismo digital fintech de inversion (GBM / GBM+)
    
    Principios:
-   - Fondo blanco nitido (#ffffff) y texto oscuro de alto contraste (#0f172a / #1e293b)
-   - Acento sobrio en azul marino financiero (#0f2942) y gris pizarra (#475569)
-   - Titulares y lectura en serifa editorial con peso periodistico firme (Georgia / Cambria)
-   - Metadatos, navegacion y etiquetas en palo seco estructurado y versalitas tecnicas
-   - Una sola columna de lectura estricta (65 a 75 caracteres)
-   - Modo oscuro automatico mediante prefers-color-scheme (pizarra noche #090d16)
-   - Sin dependencias externas ni CDNs (tipografias del sistema optimizadas)
+   - Fondo blanco puro (#ffffff) de alto contraste, sin tintes crema ni calidos
+   - Tinta negra profunda (#0a0a0a y #171717) para lectura intensiva
+   - Doble filete maestro en cabecera (regla editorial de primera plana WSJ)
+   - Acento en azul marino institucional (#002b49) y verde bursatil (#059669)
+   - Titulares en serifa firme de prensa (Georgia / Cambria, peso 700)
+   - Metadatos, etiquetas y cifras en palo seco estructurado (precision GBM)
+   - Ancho de columna estricto de 65 a 75 caracteres (max-width: 68ch)
+   - Modo oscuro bursatil nativo (#0a0e17, paleta de terminal de mercados)
+   - Sin dependencias externas ni CDNs (tipografias de sistema puras)
    - Cero guiones largos (em dashes)
    ========================================================================== */
 
 :root {
-  /* Lienzo y superficies: prensa financiera de alto contraste */
+  /* Lienzo y superficies GBM / WSJ */
   --canvas: #ffffff;
-  --surface-card: #f8fafc;
-  --surface-muted: #f1f5f9;
+  --surface-card: #f9fafb;
+  --surface-muted: #f3f4f6;
+  --surface-elevated: #ffffff;
   
-  /* Textos */
-  --ink: #0f172a;
-  --body: #1e293b;
-  --body-strong: #0f172a;
-  --muted: #475569;
-  --muted-soft: #64748b;
+  /* Textos de alto contraste */
+  --ink: #0a0a0a;
+  --body: #171717;
+  --body-strong: #000000;
+  --muted: #525252;
+  --muted-soft: #737373;
   
   /* Acentos de marca financiera */
-  --primary: #0f2942;
-  --primary-hover: #1e40af;
-  --primary-soft: rgba(15, 41, 66, 0.05);
-  --hairline: #e2e8f0;
-  --hairline-dark: #cbd5e1;
+  --primary: #002b49;           /* Azul marino corporativo GBM */
+  --primary-hover: #004578;
+  --accent-market: #059669;     /* Verde financiero bursatil */
+  --accent-soft: rgba(0, 43, 73, 0.04);
+  --hairline: #e5e7eb;          /* Filete gris fino de 1px */
+  --hairline-dark: #0a0a0a;     /* Filete negro WSJ */
   
   /* Tipografia */
   --font-serif: "Georgia", "Cambria", "Times New Roman", "Charter", serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  /* Bordes sobrios y estructurados */
+  /* Bordes de precision estructurados */
   --radio-sm: 2px;
   --radio-md: 4px;
-  --radio-lg: 6px;
 
   /* Alias de compatibilidad */
   --bg: var(--canvas);
@@ -53,21 +57,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --canvas: #090d16;
+    --canvas: #0a0e17;
     --surface-card: #111827;
     --surface-muted: #1e293b;
+    --surface-elevated: #162032;
     
-    --ink: #f8fafc;
-    --body: #e2e8f0;
+    --ink: #ffffff;
+    --body: #e5e7eb;
     --body-strong: #ffffff;
-    --muted: #94a3b8;
-    --muted-soft: #64748b;
+    --muted: #9ca3af;
+    --muted-soft: #6b7280;
     
     --primary: #38bdf8;
     --primary-hover: #7dd3fc;
-    --primary-soft: rgba(56, 189, 248, 0.1);
-    --hairline: #1e293b;
-    --hairline-dark: #334155;
+    --accent-market: #34d399;
+    --accent-soft: rgba(56, 189, 248, 0.08);
+    --hairline: #1f293d;
+    --hairline-dark: #ffffff;
   }
 }
 
@@ -92,35 +98,36 @@ body {
   color: var(--body);
 }
 
-/* Columna de lectura central de 65 a 75 caracteres */
+/* Columna central de lectura (65 a 75 caracteres) */
 .contenedor {
   max-width: 68ch;
   margin: 0 auto;
-  padding: 2.75rem 1.5rem 5rem 1.5rem;
+  padding: 2.5rem 1.5rem 5rem 1.5rem;
 }
 
-/* Cabecera periodistica con filete superior e inferior */
+/* Cabecera periodistica maestra WSJ (filete superior solido + filete inferior fino) */
 .site-header {
+  border-top: 3.5px solid var(--hairline-dark);
+  border-bottom: 1px solid var(--hairline-dark);
+  padding: 1.15rem 0 0.9rem 0;
+  margin-bottom: 2.75rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-bottom: 1.25rem;
-  margin-bottom: 3rem;
-  border-bottom: 2px solid var(--ink);
 }
 
 .site-title {
   font-family: var(--font-serif);
   font-size: 1.35rem;
   font-weight: 700;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .site-title:hover {
-  color: var(--primary);
+  opacity: 0.8;
   text-decoration: none;
 }
 
@@ -132,10 +139,10 @@ body {
 
 .site-nav a {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-weight: 650;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.15s ease;
@@ -148,10 +155,10 @@ body {
 .site-nav a.activo {
   color: var(--primary);
   border-bottom: 2px solid var(--primary);
-  padding-bottom: 2px;
+  padding-bottom: 1px;
 }
 
-/* Jerarquia de titulares */
+/* Jerarquia tipografica */
 h1, h2, h3, h4 {
   color: var(--ink);
   letter-spacing: -0.015em;
@@ -161,18 +168,18 @@ h1 {
   font-family: var(--font-serif);
   font-size: 2.25rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.18;
   margin-top: 0;
   margin-bottom: 0.75rem;
 }
 
 .subtitulo-articulo {
   font-family: var(--font-sans);
-  font-size: 1.1rem;
+  font-size: 1.075rem;
   line-height: 1.5;
   color: var(--muted);
   margin-top: 0;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.65rem;
   font-weight: 400;
 }
 
@@ -180,7 +187,7 @@ h2 {
   font-family: var(--font-serif);
   font-size: 1.45rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.28;
   margin-top: 2.75rem;
   margin-bottom: 0.85rem;
   padding-bottom: 0.35rem;
@@ -189,9 +196,9 @@ h2 {
 
 h3 {
   font-family: var(--font-sans);
-  font-size: 1.1rem;
-  font-weight: 650;
-  line-height: 1.4;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
   margin-top: 2rem;
   margin-bottom: 0.5rem;
 }
@@ -210,7 +217,7 @@ strong {
 a {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-color: var(--hairline-dark);
+  text-decoration-color: var(--hairline);
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
@@ -224,7 +231,7 @@ a:hover {
 /* Metadatos */
 .articulo-meta {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.825rem;
   color: var(--muted);
   margin-bottom: 2.25rem;
   display: flex;
@@ -251,11 +258,11 @@ a:hover {
 
 .etiqueta {
   font-family: var(--font-sans);
-  font-size: 0.725rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-  padding: 0.15rem 0.55rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
   background-color: var(--surface-muted);
   color: var(--muted);
   border: 1px solid var(--hairline);
@@ -263,7 +270,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* Bloque "En corto" para optimizacion GEO */
+/* Bloque "En corto" para optimizacion GEO (estilo Key Takeaways WSJ) */
 .en-corto {
   margin: 2.5rem 0;
   padding: 1.35rem 1.5rem;
@@ -275,20 +282,32 @@ a:hover {
 
 .en-corto h2 {
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.775rem;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   margin-top: 0;
   margin-bottom: 0.85rem;
   padding-bottom: 0;
   border-bottom: none;
   color: var(--primary);
-  font-weight: 750;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.en-corto h2::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-market);
+  border-radius: 50%;
 }
 
 .en-corto ul {
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 0.925rem;
   margin: 0;
   padding-left: 1.25rem;
 }
@@ -314,11 +333,11 @@ article li {
   margin-bottom: 0.5rem;
 }
 
-/* Bloques de cita (blockquote) */
+/* Citas editoriales (blockquote) */
 blockquote {
   margin: 2.25rem 0;
   padding: 0.85rem 0 0.85rem 1.4rem;
-  border-left: 3px solid var(--primary);
+  border-left: 3px solid var(--hairline-dark);
   color: var(--ink);
   font-family: var(--font-serif);
   font-size: 1.2rem;
@@ -333,16 +352,16 @@ blockquote p {
 blockquote cite {
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.775rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   font-style: normal;
   margin-top: 0.65rem;
   color: var(--muted);
-  font-weight: 600;
+  font-weight: 700;
 }
 
-/* Codigo y cifras tecnicas */
+/* Codigo y datos */
 code {
   font-family: var(--font-mono);
   font-size: 0.85em;
@@ -374,13 +393,13 @@ code {
 
 .item-articulo-fecha {
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.775rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--muted);
   margin-bottom: 0.4rem;
   display: block;
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .item-articulo-titulo {
@@ -409,11 +428,11 @@ code {
   font-size: 1.025rem;
 }
 
-/* Seccion de preguntas frecuentes (FAQPage para GEO) */
+/* Seccion FAQ para GEO */
 .faq-seccion {
   margin-top: 3.5rem;
   padding-top: 1.75rem;
-  border-top: 2px solid var(--ink);
+  border-top: 2px solid var(--hairline-dark);
 }
 
 .faq-seccion h2 {
@@ -424,7 +443,7 @@ code {
 }
 
 .faq-item {
-  margin-bottom: 1.15rem;
+  margin-bottom: 1rem;
   padding: 1.2rem 1.35rem;
   background-color: var(--surface-card);
   border: 1px solid var(--hairline);
@@ -433,7 +452,7 @@ code {
 
 .faq-pregunta {
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 0.975rem;
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 0.45rem;
@@ -516,7 +535,7 @@ code {
 
 .autor-box a {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 650;
   color: var(--primary);
 }
 
@@ -524,12 +543,12 @@ code {
   color: var(--primary-hover);
 }
 
-/* Caja de borrador para redaccion manual de Juan Pablo */
+/* Caja de borrador */
 .borrador-box {
   margin: 1.75rem 0;
   padding: 1.15rem 1.35rem;
   border: 1px dashed var(--primary);
-  background-color: var(--primary-soft);
+  background-color: var(--accent-soft);
   border-radius: var(--radio-sm);
   font-family: var(--font-sans);
   font-size: 0.925rem;
@@ -546,10 +565,10 @@ code {
 /* Pie de pagina */
 .site-footer {
   margin-top: 5rem;
-  padding-top: 1.75rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--hairline);
   font-family: var(--font-sans);
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   color: var(--muted);
   display: flex;
   justify-content: space-between;
@@ -574,15 +593,15 @@ code {
   text-decoration: underline;
 }
 
-/* Enlace de navegacion volver */
+/* Enlace volver */
 .enlace-volver {
   display: inline-block;
   margin-bottom: 2rem;
   font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.825rem;
+  font-weight: 650;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.15s ease;
@@ -593,13 +612,12 @@ code {
   text-decoration: underline;
 }
 
-/* Adaptabilidad movil */
 @media (max-width: 600px) {
   html {
     font-size: 17px;
   }
   .contenedor {
-    padding: 1.75rem 1.15rem 3.5rem 1.15rem;
+    padding: 1.5rem 1.15rem 3.5rem 1.15rem;
   }
   .site-header {
     flex-direction: column;
