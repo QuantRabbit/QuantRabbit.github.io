@@ -1,6 +1,6 @@
 /**
  * Logica de aplicacion para el sitio personal de ensayos del autor
- * Diseno editorial inspirado en GBM Media "The Idea" / WSJ
+ * Diseno editorial sobrio estilo The Wall Street Journal / GBM Media "The Idea"
  * Sin dependencias externas ni CDNs. Compatible con file:// y GitHub Pages.
  */
 
@@ -13,12 +13,13 @@ function obtenerTemaActual() {
   return guardado === 'oscuro' ? 'oscuro' : 'claro';
 }
 
-// Fecha del dia en la cabecera, formato "13 de octubre"
+// Fecha del dia en la cabecera, formato "13 DE OCTUBRE"
 function pintarFechaCabecera() {
-  const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const meses = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'];
   const hoy = new Date();
-  document.querySelectorAll('.header-fecha').forEach(el => {
-    el.textContent = `${hoy.getDate()} de ${meses[hoy.getMonth()]}`;
+  const fechaTexto = `${hoy.getDate()} DE ${meses[hoy.getMonth()]}`;
+  document.querySelectorAll('.site-date, .header-fecha').forEach(el => {
+    el.textContent = fechaTexto;
   });
 }
 
@@ -252,7 +253,7 @@ function actualizarMetasEncabezado(articulo) {
 }
 
 // ==========================================================================
-// Renderizado de Portada (index.html) estilo GBM Media "The Idea"
+// Renderizado de Portada (index.html) estilo WSJ / GBM Media
 // ==========================================================================
 
 async function inicializarPortada() {
@@ -268,26 +269,26 @@ async function inicializarPortada() {
   const destacado = articulos[0];
   const secundarios = articulos.slice(1);
 
-  // 1. Tarjeta destacada: panel de portada + panel de contenido
+  // 1. Tarjeta destacada: tipografia editorial pura sin portadas artificiales
   const fechaDestacada = formatearFechaCorta(destacado.fecha);
   const tiempoDestacada = calcularTiempoLectura(destacado);
-  const kickerDestacado = destacado.etiquetas && destacado.etiquetas[0] ? destacado.etiquetas[0].toUpperCase() : 'ENSAYO';
+  const kickerDestacado = destacado.etiquetas && destacado.etiquetas[0] ? destacado.etiquetas[0].toUpperCase() : 'EDITORIAL';
 
   let html = `
-    <section class="seccion-destacada" aria-label="Ensayo destacado">
-      <a href="articulo.html?slug=${encodeURIComponent(destacado.slug)}" class="card-destacada">
-        <div class="portada portada--claro card-destacada__portada"><span class="portada__marca">QR</span></div>
-        <div class="card-destacada__contenido">
-          <div class="card-destacada__tags"><span class="tag-pill tag-pill--solid">NUEVO</span></div>
-          <div>
-            <div class="card-destacada__kicker"><span class="seccion-kicker">${escaparHTML(kickerDestacado)}</span></div>
-            <h2 class="card-destacada__titulo">${escaparHTML(destacado.titulo)}</h2>
-            <p class="card-destacada__resumen">${escaparHTML(destacado.resumen)}</p>
-          </div>
-          <div class="meta-container">
-            <span class="meta-fecha">${escaparHTML(fechaDestacada)}</span>
-            <span class="meta-tiempo">${escaparHTML(tiempoDestacada)}</span>
-          </div>
+    <section class="bloque-destacado" aria-label="Ensayo destacado">
+      <a href="articulo.html?slug=${encodeURIComponent(destacado.slug)}" class="tarjeta-destacada">
+        <div class="tarjeta-destacada__header">
+          <span class="tag-pill">NUEVO</span>
+          <span class="seccion-kicker">${escaparHTML(kickerDestacado)}</span>
+        </div>
+        <h2 class="tarjeta-destacada__titulo">${escaparHTML(destacado.titulo)}</h2>
+        <p class="tarjeta-destacada__resumen">${escaparHTML(destacado.resumen)}</p>
+        <div class="meta-row">
+          <span>${escaparHTML(fechaDestacada)}</span>
+          <span class="meta-sep">·</span>
+          <span>${escaparHTML(tiempoDestacada)}</span>
+          <span class="meta-sep">·</span>
+          <span>TEXTO SIN IA</span>
         </div>
       </a>
     </section>
@@ -295,29 +296,31 @@ async function inicializarPortada() {
 
   // 2. Cuadricula "Mas ensayos"
   if (secundarios.length > 0) {
-    const variantes = ['negro', 'cobalto', 'marino'];
     html += `
-      <section class="seccion-grid" aria-label="Más ensayos publicados">
-        <h2 class="seccion-grid__titulo-bloque">Más ensayos</h2>
-        <div class="grid-articulos">
+      <section class="bloque-secundario" aria-label="Más ensayos publicados">
+        <h2 class="bloque-secundario__encabezado">Más ensayos</h2>
+        <div class="grid-ensayos">
     `;
 
-    secundarios.forEach((art, i) => {
+    secundarios.forEach((art) => {
       const fechaCorta = formatearFechaCorta(art.fecha);
       const tiempo = calcularTiempoLectura(art);
-      const variante = variantes[i % variantes.length];
+      const kicker = art.etiquetas && art.etiquetas[0] ? art.etiquetas[0].toUpperCase() : 'ENSAYO';
 
       html += `
-        <a href="articulo.html?slug=${encodeURIComponent(art.slug)}" class="card-articulo">
-          <div class="portada portada--${variante} portada--chica card-articulo__portada"><span class="portada__marca">QR</span></div>
-          <div class="card-articulo__cuerpo">
-            <div>
-              <h3 class="card-articulo__titulo">${escaparHTML(art.titulo)}</h3>
-              <p class="card-articulo__resumen">${escaparHTML(art.resumen)}</p>
+        <a href="articulo.html?slug=${encodeURIComponent(art.slug)}" class="tarjeta-ensayo">
+          <div>
+            <div class="tarjeta-ensayo__kicker">
+              <span class="seccion-kicker">${escaparHTML(kicker)}</span>
             </div>
-            <div class="meta-container">
-              <span class="meta-fecha">${escaparHTML(fechaCorta)}</span>
-              <span class="meta-tiempo">${escaparHTML(tiempo)}</span>
+            <h3 class="tarjeta-ensayo__titulo">${escaparHTML(art.titulo)}</h3>
+            <p class="tarjeta-ensayo__resumen">${escaparHTML(art.resumen)}</p>
+          </div>
+          <div class="tarjeta-ensayo__meta">
+            <div class="meta-row">
+              <span>${escaparHTML(fechaCorta)}</span>
+              <span class="meta-sep">·</span>
+              <span>${escaparHTML(tiempo)}</span>
             </div>
           </div>
         </a>
@@ -334,23 +337,25 @@ async function inicializarPortada() {
 }
 
 // ==========================================================================
-// Renderizado de Articulo Individual (articulo.html) estilo GBM The Idea
+// Renderizado de Articulo Individual (articulo.html) estilo WSJ / GBM Media
 // ==========================================================================
 
 async function inicializarArticulo() {
   const contenedor = document.getElementById('contenedor-articulo');
   if (!contenedor) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get('slug');
   const articulos = await obtenerArticulos();
+  let slug = params.get('slug');
+  if (!slug && articulos.length > 0) {
+    slug = articulos[0].slug;
+  }
 
   if (!slug) {
     let enlaces = articulos.map(a => `<li><a href="articulo.html?slug=${encodeURIComponent(a.slug)}">${escaparHTML(a.titulo)}</a></li>`).join('');
     contenedor.innerHTML = `
       <div class="columna-lectura" style="padding: 3rem 0;">
-        <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
-        <h1 class="single-hero__titulo">Selecciona un ensayo</h1>
+        <a href="index.html" class="btn-volver">← Regresar a Ensayos</a>
+        <h1 class="articulo-titulo">Selecciona un ensayo</h1>
         <p>No se especificó ningún artículo en el enlace. Elige uno de la lista a continuación:</p>
         <ul style="margin: 1.5rem 0; padding-left: 1.5rem;">${enlaces}</ul>
       </div>
@@ -363,8 +368,8 @@ async function inicializarArticulo() {
   if (!articulo) {
     contenedor.innerHTML = `
       <div class="columna-lectura" style="padding: 3rem 0;">
-        <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
-        <h1 class="single-hero__titulo">Ensayo no encontrado</h1>
+        <a href="index.html" class="btn-volver">← Regresar a Ensayos</a>
+        <h1 class="articulo-titulo">Ensayo no encontrado</h1>
         <p>El ensayo con el identificador <code>${escaparHTML(slug)}</code> no existe en el sistema.</p>
         <p><a href="index.html">Ir a la lista de todos los ensayos</a></p>
       </div>
@@ -377,35 +382,37 @@ async function inicializarArticulo() {
 
   const fechaCorta = formatearFechaCorta(articulo.fecha);
   const tiempoLectura = calcularTiempoLectura(articulo);
-  const categoria = articulo.etiquetas && articulo.etiquetas[0] ? articulo.etiquetas[0].toUpperCase() : 'THE IDEA';
+  const categoria = articulo.etiquetas && articulo.etiquetas[0] ? articulo.etiquetas[0].toUpperCase() : 'EDITORIAL';
   const urlActual = window.location.href;
   const textoCompartir = encodeURIComponent(`${articulo.titulo} | Ensayos: `);
 
   let html = `
     <div class="columna-lectura">
-      <header class="single-hero">
-        <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
-        <div class="single-hero__tags">
-          <span class="tag-pill tag-pill--outline">EDITORIAL</span>
+      <header class="articulo-cabecera">
+        <a href="index.html" class="btn-volver">← Regresar a Ensayos</a>
+        <div class="articulo-tags">
+          <span class="tag-pill">NUEVO</span>
           <span class="seccion-kicker">${escaparHTML(categoria)}</span>
         </div>
-        <h1 class="single-hero__titulo">${escaparHTML(articulo.titulo)}</h1>
-        ${articulo.subtitulo ? `<p class="single-hero__bajada">${escaparHTML(articulo.subtitulo)}</p>` : ''}
-        <div class="meta-container single-hero__meta">
-          <span class="meta-fecha"><time datetime="${escaparHTML(articulo.fecha)}">${escaparHTML(fechaCorta)}</time></span>
-          <span class="meta-separador">·</span>
-          <span class="meta-tiempo">${escaparHTML(tiempoLectura)}</span>
-          <span class="meta-separador">·</span>
-          <span class="meta-autor">POR <a href="sobre-mi.html" style="color: inherit; text-decoration: underline;">${escaparHTML(articulo.autor ? articulo.autor.nombre : 'Autor')}</a></span>
-          <span class="meta-separador">·</span>
-          <span class="meta-badge">TEXTO SIN IA</span>
-          ${articulo.fechaActualizacion && articulo.fechaActualizacion !== articulo.fecha ? `<span class="meta-separador">·</span><span>ACTUALIZADO: ${escaparHTML(formatearFechaCorta(articulo.fechaActualizacion))}</span>` : ''}
+        <h1 class="articulo-titulo">${escaparHTML(articulo.titulo)}</h1>
+        ${articulo.subtitulo ? `<p class="articulo-bajada">${escaparHTML(articulo.subtitulo)}</p>` : ''}
+        <div class="articulo-meta">
+          <div class="meta-row">
+            <span><time datetime="${escaparHTML(articulo.fecha)}">${escaparHTML(fechaCorta)}</time></span>
+            <span class="meta-sep">·</span>
+            <span>${escaparHTML(tiempoLectura)}</span>
+            <span class="meta-sep">·</span>
+            <span>POR <a href="sobre-mi.html" style="color: inherit; text-decoration: underline;">${escaparHTML(articulo.autor ? articulo.autor.nombre : 'Autor')}</a></span>
+            <span class="meta-sep">·</span>
+            <span>TEXTO SIN IA</span>
+            ${articulo.fechaActualizacion && articulo.fechaActualizacion !== articulo.fecha ? `<span class="meta-sep">·</span><span>ACTUALIZADO: ${escaparHTML(formatearFechaCorta(articulo.fechaActualizacion))}</span>` : ''}
+          </div>
         </div>
       </header>
 
       <!-- Barra para compartir -->
-      <div class="single-share">
-        <span class="single-share__label">Compartir:</span>
+      <div class="articulo-share">
+        <span class="articulo-share__label">Compartir:</span>
         <a href="https://wa.me/?text=${textoCompartir}${encodeURIComponent(urlActual)}" target="_blank" rel="noopener noreferrer" class="btn-share">WhatsApp</a>
         <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(urlActual)}" target="_blank" rel="noopener noreferrer" class="btn-share">LinkedIn</a>
         <a href="https://twitter.com/intent/tweet?text=${textoCompartir}&url=${encodeURIComponent(urlActual)}" target="_blank" rel="noopener noreferrer" class="btn-share">X</a>
@@ -418,8 +425,7 @@ async function inicializarArticulo() {
     html += `
       <section class="en-corto" aria-label="Resumen ejecutivo">
         <div class="en-corto__header">
-          <span style="font-size: 1.1rem;">⚡</span>
-          <span class="en-corto__kicker">EN CORTO: SÍNTESIS EJECUTIVA</span>
+          <span class="en-corto__kicker">⚡ EN CORTO: SÍNTESIS EJECUTIVA</span>
         </div>
         <p class="en-corto__intro">Puntos clave autosuficientes para directores generales y referencia directa en motores de respuesta (GEO):</p>
         <ul>
@@ -518,18 +524,15 @@ async function inicializarArticulo() {
   // Tarjeta de autor al pie
   html += `
       <div class="autor-card">
-        <div class="autor-card__monograma">QR</div>
-        <div class="autor-card__body">
-          <h3>Sobre el autor</h3>
-          <p class="autor-card__bio">
-            Escribe ensayos sobre macroeconomía, decisiones de tesorería, regulación fintech e inversión estratégica dirigidos a directores generales y fundadores. Redacta todos sus textos personalmente sin asistencia de inteligencia artificial.
-          </p>
-          <a href="sobre-mi.html" class="autor-card__enlace">Leer más sobre el autor y los principios de este sitio →</a>
-        </div>
+        <h3>Sobre el autor</h3>
+        <p class="autor-card__bio">
+          Escribe ensayos sobre macroeconomía, decisiones de tesorería, regulación fintech e inversión estratégica dirigidos a directores generales y fundadores. Redacta todos sus textos personalmente sin asistencia de inteligencia artificial.
+        </p>
+        <a href="sobre-mi.html" class="autor-card__enlace">Leer más sobre el autor y los principios de este sitio →</a>
       </div>
 
       <div style="margin: 3rem 0 1rem 0;">
-        <a href="index.html" class="btn-retorno">← Regresar a la lista de todos los ensayos</a>
+        <a href="index.html" class="btn-volver">← Regresar a la lista de todos los ensayos</a>
       </div>
     </div>
   `;
@@ -538,10 +541,10 @@ async function inicializarArticulo() {
 }
 
 // ==========================================================================
-// Inicializacion al cargar el DOM
+// Inicializacion al cargar el DOM o si ya esta listo
 // ==========================================================================
 
-document.addEventListener('DOMContentLoaded', () => {
+function iniciarApp() {
   pintarFechaCabecera();
   actualizarBotonTema(obtenerTemaActual());
 
@@ -550,4 +553,10 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (document.getElementById('contenedor-articulo')) {
     inicializarArticulo();
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', iniciarApp);
+} else {
+  iniciarApp();
+}

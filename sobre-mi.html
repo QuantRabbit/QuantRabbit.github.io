@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sobre mí | Ensayos</title>
-  <meta name="description" content="Perfil y lineamientos de un canal personal de ensayos sobre economía para founders y CEOs.">
+  <meta name="description" content="Perfil y lineamientos metodológicos de un canal personal de ensayos sobre economía para founders y CEOs.">
   <meta name="author" content="Autor">
   <meta name="robots" content="index, follow">
 
@@ -24,7 +24,7 @@
   <meta name="twitter:title" content="Sobre mí | Ensayos">
   <meta name="twitter:description" content="Ensayos sobre economía, política e inversión para fundadores y directores generales.">
 
-  <!-- Prevencion de parpadeo de tema -->
+  <!-- Prevención de parpadeo de tema -->
   <script>
     (function() {
       var tema = localStorage.getItem('tema-preferido');
@@ -59,34 +59,29 @@
   }
   </script>
 
-  <!-- Logica para conmutador de tema -->
+  <!-- Lógica para conmutador de tema -->
   <script src="js/app.js" defer></script>
 </head>
 <body>
   <div class="sitio-wrapper">
-    <!-- Cabecera Editorial GBM Media -->
-    <header class="gbm-header">
+    <!-- Cabecera Editorial Estilo WSJ / GBM Media -->
+    <header class="site-header">
       <div class="contenedor">
-        <div class="gbm-header__top">
-          <a href="index.html" class="marca-editorial">
-            <span class="marca-monograma">QR</span>
-            <div class="marca-info">
-              <span class="marca-nombre">ENSAYOS</span>
-            </div>
+        <div class="site-header__top">
+          <a href="index.html" class="site-brand">
+            <span class="site-brand__titulo">ENSAYOS</span>
+            <span class="site-brand__subtitulo">Canal editorial</span>
           </a>
 
-          <div class="gbm-header__acciones">
-            <div class="header-fecha-bloque">
-              <p class="header-fecha">13 DE OCTUBRE</p>
-              <p class="header-subfecha">Canal editorial personal</p>
-            </div>
+          <div class="site-header__acciones">
+            <span class="site-date">13 DE OCTUBRE</span>
             <button type="button" class="btn-tema" aria-label="Cambiar tema">
               <span>🌙</span><span>OSCURO</span>
             </button>
           </div>
         </div>
 
-        <nav class="gbm-subnav" aria-label="Navegación editorial">
+        <nav class="site-nav" aria-label="Navegación editorial">
           <a href="index.html">Ensayos</a>
           <a href="sobre-mi.html" class="activo" aria-current="page">Sobre mí</a>
           <a href="rss.xml">RSS Feed</a>
@@ -99,27 +94,28 @@
     <!-- Contenido Principal -->
     <main class="contenedor">
       <div class="columna-lectura" style="padding: 2.5rem 0 4rem 0;">
-        <header class="single-hero" style="margin-bottom: 2rem;">
-          <div class="single-hero__tags">
-            <span class="tag-pill tag-pill--solid">PERFIL</span>
+        <header class="articulo-cabecera">
+          <a href="index.html" class="btn-volver">← Regresar a Ensayos</a>
+          <div class="articulo-tags">
+            <span class="tag-pill">PERFIL</span>
             <span class="seccion-kicker">ENFOQUE</span>
           </div>
-          <h1 class="single-hero__titulo">Sobre mí</h1>
-          <p class="single-hero__bajada">Enfoque y compromisos metodológicos de este espacio</p>
+          <h1 class="articulo-titulo">Sobre mí</h1>
+          <p class="articulo-bajada">Enfoque y compromisos metodológicos de este espacio</p>
         </header>
 
         <article class="cuerpo-articulo">
           <section>
             <h2>Quién soy</h2>
             <p>
-              Este es mi canal personal de ensayos.
+              Soy estudiante de Ingeniería Financiera y operador en tecnología financiera en México. Este es mi canal personal de ensayos, donde reflexiono sobre la intersección entre política monetaria, asignación de capital, regulación y estrategia corporativa.
             </p>
           </section>
 
           <section>
             <h2>De qué trata este sitio</h2>
             <p>
-              Este es mi canal personal de ensayos. Aquí escribo sobre cuatro temas centrales:
+              Escribo sobre cuatro temas centrales:
             </p>
             <ul>
               <li><strong>Economía:</strong> macroeconomía aplicada, política monetaria del Banco de México y dinámica productiva nacional.</li>
@@ -157,17 +153,17 @@
         </article>
 
         <div style="margin-top: 3rem;">
-          <a href="index.html" class="btn-retorno">← Regresar a Ensayos</a>
+          <a href="index.html" class="btn-volver">← Regresar a Ensayos</a>
         </div>
       </div>
     </main>
 
-    <!-- Pie de pagina editorial GBM Media -->
-    <footer class="gbm-footer">
+    <!-- Pie de Página Editorial -->
+    <footer class="site-footer">
       <div class="contenedor">
-        <div class="gbm-footer__inner">
-          <p class="gbm-footer__copy">© 2026 Ensayos. Textos redactados a mano sin inteligencia artificial.</p>
-          <div class="gbm-footer__links">
+        <div class="site-footer__inner">
+          <p class="site-footer__copy">© 2026 Ensayos. Textos redactados a mano sin inteligencia artificial.</p>
+          <div class="site-footer__links">
             <a href="index.html">Ensayos</a>
             <a href="sobre-mi.html">Sobre mí</a>
             <a href="llms.txt">llms.txt</a>

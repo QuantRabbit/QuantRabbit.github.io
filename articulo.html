@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ensayo | Ensayos</title>
-  <meta name="description" content="Ensayo sobre economía, política, inversión y vida económica.">
+  <title>Por qué existe esta página | Ensayos</title>
+  <meta name="description" content="Manifiesto editorial y reglas de juego del canal personal de ensayos sobre economía, política, inversión y vida económica para founders y directores generales.">
   <meta name="author" content="Autor">
   <meta name="robots" content="index, follow">
 
-  <!-- Canónico y Open Graph gestionados dinamicamente por js/app.js -->
-  <link rel="canonical" href="https://quantrabbit.github.io/articulo.html">
+  <!-- Canónico y Open Graph -->
+  <link rel="canonical" href="https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina">
   <meta property="og:site_name" content="Ensayos">
-  <meta property="og:title" content="Ensayo | Ensayos">
-  <meta property="og:description" content="Canal personal de ensayos sobre economía, política e inversión.">
+  <meta property="og:title" content="Por qué existe esta página | Ensayos">
+  <meta property="og:description" content="Manifiesto editorial y reglas de juego del canal personal de ensayos sobre economía, política, inversión y vida económica para founders y directores generales.">
   <meta property="og:type" content="article">
+  <meta property="og:url" content="https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina">
   <meta property="og:locale" content="es_MX">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Ensayo | Ensayos">
-  <meta name="twitter:description" content="Canal personal de ensayos sobre economía, política e inversión.">
+  <meta name="twitter:title" content="Por qué existe esta página | Ensayos">
+  <meta name="twitter:description" content="Manifiesto editorial y reglas de juego del canal personal de ensayos sobre economía, política, inversión y vida económica para founders y directores generales.">
 
-  <!-- Prevencion de parpadeo de tema -->
+  <!-- Prevención de parpadeo de tema -->
   <script>
     (function() {
       var tema = localStorage.getItem('tema-preferido');
@@ -34,35 +35,87 @@
   <!-- Estilos -->
   <link rel="stylesheet" href="css/estilos.css">
 
-  <!-- Respaldo de datos y logica cliente -->
+  <!-- Marcado estructurado JSON-LD (SEO y GEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina#articulo",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://quantrabbit.github.io/#sitio",
+          "name": "Ensayos",
+          "url": "https://quantrabbit.github.io/"
+        },
+        "headline": "Por qué existe esta página",
+        "description": "Manifiesto editorial y reglas de juego del canal personal de ensayos sobre economía, política, inversión y vida económica para founders y directores generales.",
+        "datePublished": "2026-10-12",
+        "dateModified": "2026-10-12",
+        "mainEntityOfPage": "https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina",
+        "inLanguage": "es-MX",
+        "author": {
+          "@type": "Person",
+          "@id": "https://quantrabbit.github.io/sobre-mi.html#autor",
+          "name": "Autor",
+          "url": "https://quantrabbit.github.io/sobre-mi.html"
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": "Autor"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://quantrabbit.github.io/articulo.html?slug=por-que-existe-esta-pagina#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Por qué los ensayos se escriben sin inteligencia artificial?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Todos los textos se redactan personalmente por el autor desde el primer borrador para garantizar criterio propio, honestidad intelectual y responsabilidad directa sobre las tesis expuestas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuál es la frecuencia de publicación de los ensayos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Las entregas se publican de forma periódica con foco en profundidad analítica y datos primarios verificados, priorizando el rigor metodológico sobre la inmediatez."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Respaldo de datos y lógica cliente -->
   <script src="datos/articulos.js"></script>
   <script src="js/app.js" defer></script>
 </head>
 <body>
   <div class="sitio-wrapper">
-    <!-- Cabecera Editorial GBM Media -->
-    <header class="gbm-header">
+    <!-- Cabecera Editorial Estilo WSJ / GBM Media -->
+    <header class="site-header">
       <div class="contenedor">
-        <div class="gbm-header__top">
-          <a href="index.html" class="marca-editorial">
-            <span class="marca-monograma">QR</span>
-            <div class="marca-info">
-              <span class="marca-nombre">ENSAYOS</span>
-            </div>
+        <div class="site-header__top">
+          <a href="index.html" class="site-brand">
+            <span class="site-brand__titulo">ENSAYOS</span>
+            <span class="site-brand__subtitulo">Canal editorial</span>
           </a>
 
-          <div class="gbm-header__acciones">
-            <div class="header-fecha-bloque">
-              <p class="header-fecha">13 DE OCTUBRE</p>
-              <p class="header-subfecha">Canal editorial personal</p>
-            </div>
+          <div class="site-header__acciones">
+            <span class="site-date">13 DE OCTUBRE</span>
             <button type="button" class="btn-tema" aria-label="Cambiar tema">
               <span>🌙</span><span>OSCURO</span>
             </button>
           </div>
         </div>
 
-        <nav class="gbm-subnav" aria-label="Navegación editorial">
+        <nav class="site-nav" aria-label="Navegación editorial">
           <a href="index.html">Ensayos</a>
           <a href="sobre-mi.html">Sobre mí</a>
           <a href="rss.xml">RSS Feed</a>
@@ -74,22 +127,117 @@
 
     <!-- Contenedor Principal de Lectura -->
     <main class="contenedor" id="contenedor-articulo">
-      <noscript>
-        <div class="columna-lectura" style="padding: 3rem 0;">
-          <p>Este sitio utiliza JavaScript ligero para presentar los ensayos con formato interactivo. Si tu navegador no ejecuta scripts, puedes consultar directamente los datos en <a href="datos/articulos.json">datos/articulos.json</a> o suscribirte a <a href="rss.xml">rss.xml</a>.</p>
+      <div class="columna-lectura">
+        <header class="articulo-cabecera">
+          <a href="index.html" class="btn-volver">← Regresar a Ensayos</a>
+          <div class="articulo-tags">
+            <span class="tag-pill">NUEVO</span>
+            <span class="seccion-kicker">EDITORIAL</span>
+          </div>
+          <h1 class="articulo-titulo">Por qué existe esta página</h1>
+          <p class="articulo-bajada">Manifiesto editorial y reglas de juego</p>
+          <div class="articulo-meta">
+            <div class="meta-row">
+              <span><time datetime="2026-10-12">12 OCT 26</time></span>
+              <span class="meta-sep">·</span>
+              <span>4 MIN DE LECTURA</span>
+              <span class="meta-sep">·</span>
+              <span>POR <a href="sobre-mi.html" style="color: inherit; text-decoration: underline;">Autor</a></span>
+              <span class="meta-sep">·</span>
+              <span>TEXTO SIN IA</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Barra para compartir -->
+        <div class="articulo-share">
+          <span class="articulo-share__label">Compartir:</span>
+          <a href="https://wa.me/?text=Por%20qu%C3%A9%20existe%20esta%20p%C3%A1gina%20%7C%20Ensayos" target="_blank" rel="noopener noreferrer" class="btn-share">WhatsApp</a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fquantrabbit.github.io%2Farticulo.html%3Fslug%3Dpor-que-existe-esta-pagina" target="_blank" rel="noopener noreferrer" class="btn-share">LinkedIn</a>
+          <a href="https://twitter.com/intent/tweet?text=Por%20qu%C3%A9%20existe%20esta%20p%C3%A1gina%20%7C%20Ensayos" target="_blank" rel="noopener noreferrer" class="btn-share">X</a>
+          <button type="button" class="btn-share" id="btn-copiar-enlace" onclick="navigator.clipboard.writeText(window.location.href); this.textContent='¡Copiado!'; setTimeout(() => this.textContent='Copiar enlace', 2000);">Copiar enlace</button>
         </div>
-      </noscript>
-      <div class="columna-lectura" style="padding: 3.5rem 0; color: var(--muted);">
-        Cargando ensayo...
+
+        <!-- Bloque "En corto" para motores de respuesta y síntesis ejecutiva (GEO) -->
+        <section class="en-corto" aria-label="Resumen ejecutivo">
+          <div class="en-corto__header">
+            <span class="en-corto__kicker">⚡ EN CORTO: SÍNTESIS EJECUTIVA</span>
+          </div>
+          <p class="en-corto__intro">Puntos clave autosuficientes para directores generales y referencia directa en motores de respuesta (GEO):</p>
+          <ul>
+            <li>[Pendiente: Frase 1 autosuficiente redactada por el autor con la tesis central de este espacio]</li>
+            <li>[Pendiente: Frase 2 autosuficiente sobre la audiencia objetivo de fundadores y directores generales]</li>
+            <li>[Pendiente: Frase 3 autosuficiente sobre el compromiso metodológico de no usar inteligencia artificial en borradores]</li>
+          </ul>
+        </section>
+
+        <!-- Cuerpo del Ensayo -->
+        <div class="cuerpo-articulo">
+          <h2>1. El ruido en la conversación económica</h2>
+          <div class="borrador-box">
+            <strong>Sección en borrador (redacción por el autor):</strong>
+            Autor: redacta aquí tu diagnóstico sobre por qué los análisis financieros tradicionales no le sirven a un fundador que opera un negocio en el día a día.
+          </div>
+
+          <h2>2. Para quién es este espacio</h2>
+          <div class="borrador-box">
+            <strong>Sección en borrador (redacción por el autor):</strong>
+            Autor: define el perfil del lector (CEOs y founders que buscan entender economía y política para tomar decisiones) y el tono directo en segunda persona.
+          </div>
+
+          <h2>3. Reglas de juego y principios editoriales</h2>
+          <div class="borrador-box">
+            <strong>Sección en borrador (redacción por el autor):</strong>
+            Autor: explica los compromisos irrenunciables: textos escritos a mano sin IA, datos con unidad, año y fuente explícita, y la regla de no usar em dashes.
+          </div>
+
+          <h2>4. Qué esperar de las próximas entregas</h2>
+          <div class="borrador-box">
+            <strong>Sección en borrador (redacción por el autor):</strong>
+            Autor: anticipa los temas recurrentes (ahorro institucional, política monetaria en México, regulación fintech y finanzas corporativas).
+          </div>
+        </div>
+
+        <!-- Preguntas frecuentes (GEO / FAQPage) -->
+        <section class="faq-seccion" aria-label="Preguntas frecuentes">
+          <h2 class="faq-seccion__titulo">Preguntas frecuentes</h2>
+          <div class="faq-item">
+            <h3 class="faq-pregunta">¿Por qué los ensayos se escriben sin inteligencia artificial?</h3>
+            <div class="borrador-box">
+              <strong>Respuesta pendiente (redacción por el autor):</strong>
+              Autor: redacta la respuesta en 2 o 3 oraciones claras para que buscadores e inteligencias artificiales puedan citarla.
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-pregunta">¿Cuál es la frecuencia de publicación de los ensayos?</h3>
+            <div class="borrador-box">
+              <strong>Respuesta pendiente (redacción por el autor):</strong>
+              Autor: define aquí tu ritmo de publicación estimado.
+            </div>
+          </div>
+        </section>
+
+        <!-- Tarjeta de Autor al pie -->
+        <div class="autor-card">
+          <h3>Sobre el autor</h3>
+          <p class="autor-card__bio">
+            Escribe ensayos sobre macroeconomía, decisiones de tesorería, regulación fintech e inversión estratégica dirigidos a directores generales y fundadores. Redacta todos sus textos personalmente sin asistencia de inteligencia artificial.
+          </p>
+          <a href="sobre-mi.html" class="autor-card__enlace">Leer más sobre el autor y los principios de este sitio →</a>
+        </div>
+
+        <div style="margin: 3rem 0 1rem 0;">
+          <a href="index.html" class="btn-volver">← Regresar a la lista de todos los ensayos</a>
+        </div>
       </div>
     </main>
 
-    <!-- Pie de pagina editorial GBM Media -->
-    <footer class="gbm-footer">
+    <!-- Pie de Página Editorial -->
+    <footer class="site-footer">
       <div class="contenedor">
-        <div class="gbm-footer__inner">
-          <p class="gbm-footer__copy">© 2026 Ensayos. Textos redactados a mano sin inteligencia artificial.</p>
-          <div class="gbm-footer__links">
+        <div class="site-footer__inner">
+          <p class="site-footer__copy">© 2026 Ensayos. Textos redactados a mano sin inteligencia artificial.</p>
+          <div class="site-footer__links">
             <a href="index.html">Ensayos</a>
             <a href="sobre-mi.html">Sobre mí</a>
             <a href="llms.txt">llms.txt</a>

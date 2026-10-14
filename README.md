@@ -1,6 +1,6 @@
-# Juan Pablo Sánchez: Sitio personal de ensayos
+# Sitio personal de ensayos
 
-Canal personal de ensayos sobre economía, política, inversión y vida económica escrito por Juan Pablo Sánchez para founders y directores generales.
+Canal personal de ensayos sobre economía, política, inversión y vida económica escrito para founders y directores generales.
 
 El sitio es estático puro (HTML5, CSS y JSON), sin dependencias externas, sin librerías de terceros y sin paso de compilación. Funciona abriendo directamente los archivos con doble clic en el explorador de archivos local y se publica de forma directa en GitHub Pages.
 
@@ -54,7 +54,7 @@ http://localhost:8000/
 
 ## 3. Instrucciones de publicación en GitHub Pages (Cuenta: QuantRabbit)
 
-Para publicar el sitio en GitHub Pages bajo tu cuenta `QuantRabbit`, sigue estos pasos desde la terminal dentro de esta carpeta (`/Users/juanpablo/Desktop/sitio-personal`).
+Para publicar el sitio en GitHub Pages bajo tu cuenta `QuantRabbit`, sigue estos pasos desde la terminal dentro de esta carpeta.
 
 > Nota: Los siguientes comandos NO han sido ejecutados por el agente. Requieren tu ejecución manual.
 
@@ -99,7 +99,7 @@ git push -u origin main
 
 ## 4. Cómo agregar o editar ensayos
 
-La regla central del sitio es que **los ensayos se redactan a mano por Juan Pablo Sánchez, sin asistencia de inteligencia artificial**, manteniendo citas directas a fuentes primarias y sin utilizar guiones largos (em dashes).
+La regla central del sitio es que **los ensayos se redactan a mano por el autor, sin asistencia de inteligencia artificial**, manteniendo citas directas a fuentes primarias y sin utilizar guiones largos (em dashes).
 
 Para escribir o editar un ensayo:
 
@@ -133,5 +133,5 @@ El sitio está estructurado para que tanto buscadores convencionales como modelo
 - **Bloque "En corto":** Síntesis de 3 a 5 conclusiones autosuficientes al inicio del artículo. Permite a las IA extraer citas directas con contexto completo.
 - **Datos con año y fuente:** Cada cifra vincula magnitud, temporalidad e institución emisora en la misma oración.
 - **Sección FAQ con FAQPage:** Marcado JSON-LD `FAQPage` integrado para respuestas directas.
-- **Esquema Person y Article:** Marcado semántico que atribuye la autoría profesional a Juan Pablo Sánchez (CIO de Bombo) y establece fechas de publicación y actualización.
+- **Esquema Person y Article:** Marcado semántico que atribuye la autoría profesional al autor y establece fechas de publicación y actualización.
 - **Archivo llms.txt:** Documento en la raíz del dominio que orienta a los modelos de lenguaje sobre la especialidad del sitio, el autor y los ensayos publicados.
